@@ -127,8 +127,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CursosController.cs" />
     <Compile Include="Controllers\EstudiantesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HorariosController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProfesoresController.cs" />
     <Compile Include="Global.asax.cs">
@@ -146,9 +148,15 @@
     <Compile Include="Migrations\202307182135427_Profesores.designer.cs">
       <DependentUpon>202307182135427_Profesores.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202307282209010_Cursos.cs" />
+    <Compile Include="Migrations\202307282209010_Cursos.designer.cs">
+      <DependentUpon>202307282209010_Cursos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Context.cs" />
+    <Compile Include="Models\Cursos.cs" />
     <Compile Include="Models\Estudiantes.cs" />
+    <Compile Include="Models\Horarios.cs" />
     <Compile Include="Models\Profesores.cs" />
     <Compile Include="Models\Usuarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -218,6 +226,16 @@
     <Content Include="Views\Profesores\Edit.cshtml" />
     <Content Include="Views\Profesores\Details.cshtml" />
     <Content Include="Views\Profesores\Delete.cshtml" />
+    <Content Include="Views\Cursos\Create.cshtml" />
+    <Content Include="Views\Cursos\Delete.cshtml" />
+    <Content Include="Views\Cursos\Details.cshtml" />
+    <Content Include="Views\Cursos\Edit.cshtml" />
+    <Content Include="Views\Cursos\Index.cshtml" />
+    <Content Include="Views\Horarios\Create.cshtml" />
+    <Content Include="Views\Horarios\Delete.cshtml" />
+    <Content Include="Views\Horarios\Details.cshtml" />
+    <Content Include="Views\Horarios\Edit.cshtml" />
+    <Content Include="Views\Horarios\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -259,6 +277,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202307182135427_Profesores.resx">
       <DependentUpon>202307182135427_Profesores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202307282209010_Cursos.resx">
+      <DependentUpon>202307282209010_Cursos.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
