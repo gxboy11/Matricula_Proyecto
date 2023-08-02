@@ -14,17 +14,22 @@ namespace Matricula_Proyecto.Controllers
         private readonly Context _context = new Context();
 
         // GET: Estudiantes
+
+
         public ActionResult Index()
         {
             var estudiantes = _context.Estudiantes.ToList();
             return View(estudiantes);
         }
 
+        
+
         public ActionResult Create()
         {
             return View();
         }
 
+        //[Authorize(Roles = "ADMIN")]
         [HttpPost]
         public ActionResult Create(Estudiantes estudiante)
         {
@@ -36,6 +41,7 @@ namespace Matricula_Proyecto.Controllers
             return View(estudiante);
         }
 
+        //[Authorize(Roles = "ADMIN")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -51,6 +57,7 @@ namespace Matricula_Proyecto.Controllers
             return View(estudiante);
         }
 
+        //[Authorize(Roles = "ADMIN")]
         [HttpPost]
         public ActionResult Edit(Estudiantes estudiante) //Guarda modificacion
         {
@@ -63,6 +70,7 @@ namespace Matricula_Proyecto.Controllers
             return View(estudiante);
         }
 
+        //[Authorize(Roles = "PROFESOR, ESTUDIANTE")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -78,6 +86,7 @@ namespace Matricula_Proyecto.Controllers
             return View(estudiante);
         }
 
+        //[Authorize(Roles = "ADMIN")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -93,6 +102,7 @@ namespace Matricula_Proyecto.Controllers
             return View(estudiante);
         }
 
+        //[Authorize(Roles = "ADMIN")]
         [HttpPost]
         public ActionResult Delete(int id) //Guarda modificacion
         {
