@@ -1,0 +1,42 @@
+﻿@model Matricula_Proyecto.Models.Cursos
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Cursos</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre_curso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre_curso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.creditos_curso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.creditos_curso)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.curso_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Matricula_Proyecto.Models.Estudiantes>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre_estudiante)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.apellido_estudiante)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.correo_estudiante)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fecha_nacimiento_estudiante)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.direccion_estudiante)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.telefono_estudiante)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre_estudiante)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.apellido_estudiante)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.correo_estudiante)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fecha_nacimiento_estudiante)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.direccion_estudiante)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.telefono_estudiante)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.estudiante_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.estudiante_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.estudiante_id })
+        </td>
+    </tr>
+}
+
+</table>
