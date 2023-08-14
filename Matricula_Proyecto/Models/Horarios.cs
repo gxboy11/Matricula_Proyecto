@@ -22,7 +22,6 @@ namespace Matricula_Proyecto.Models
         public string dia_semana { get; set; }
 
 
-
         [Display(Name = "Hora inicio")]
         public TimeSpan hora_inicio { get; set; }
 

@@ -10,107 +10,116 @@ using Matricula_Proyecto.Models;
 
 namespace Matricula_Proyecto.Controllers
 {
-    public class CursosController : Controller
+    public class MatriculasController : Controller
     {
         private Context db = new Context();
 
-        // GET: Cursos
+        // GET: Matriculas
         public ActionResult Index()
         {
-            return View(db.Cursos.ToList());
+            var matricula = db.Matricula.Include(m => m.estudiante).Include(m => m.horario);
+            return View(matricula.ToList());
         }
 
-        // GET: Cursos/Details/5
+        // GET: Matriculas/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cursos cursos = db.Cursos.Find(id);
-            if (cursos == null)
+            Matricula matricula = db.Matricula.Find(id);
+            if (matricula == null)
             {
                 return HttpNotFound();
             }
-            return View(cursos);
+            return View(matricula);
         }
 
-        // GET: Cursos/Create
+        // GET: Matriculas/Create
         public ActionResult Create()
         {
+            ViewBag.estudiante_id = new SelectList(db.Estudiantes, "estudiante_id", "nombre_estudiante");
+            ViewBag.horario_id = new SelectList(db.Horarios, "horario_id", "dia_semana");
             return View();
         }
 
-        // POST: Cursos/Create
+        // POST: Matriculas/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "curso_id,nombre_curso,descripcion,creditos_curso,carrera_id")] Cursos cursos)
+        public ActionResult Create([Bind(Include = "matricula_id,estudiante_id,horario_id")] Matricula matricula)
         {
             if (ModelState.IsValid)
             {
-                db.Cursos.Add(cursos);
+                db.Matricula.Add(matricula);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(cursos);
+            ViewBag.estudiante_id = new SelectList(db.Estudiantes, "estudiante_id", "nombre_estudiante", matricula.estudiante_id);
+            ViewBag.horario_id = new SelectList(db.Horarios, "horario_id", "dia_semana", matricula.horario_id);
+            return View(matricula);
         }
 
-        // GET: Cursos/Edit/5
+        // GET: Matriculas/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cursos cursos = db.Cursos.Find(id);
-            if (cursos == null)
+            Matricula matricula = db.Matricula.Find(id);
+            if (matricula == null)
             {
                 return HttpNotFound();
             }
-            return View(cursos);
+            ViewBag.estudiante_id = new SelectList(db.Estudiantes, "estudiante_id", "nombre_estudiante", matricula.estudiante_id);
+            ViewBag.horario_id = new SelectList(db.Horarios, "horario_id", "dia_semana", matricula.horario_id);
+            return View(matricula);
         }
 
-        // POST: Cursos/Edit/5
+        // POST: Matriculas/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "curso_id,nombre_curso,descripcion,creditos_curso,carrera_id")] Cursos cursos)
+        public ActionResult Edit([Bind(Include = "matricula_id,estudiante_id,horario_id")] Matricula matricula)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(cursos).State = EntityState.Modified;
+                db.Entry(matricula).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(cursos);
+            ViewBag.estudiante_id = new SelectList(db.Estudiantes, "estudiante_id", "nombre_estudiante", matricula.estudiante_id);
+            ViewBag.horario_id = new SelectList(db.Horarios, "horario_id", "dia_semana", matricula.horario_id);
+            return View(matricula);
         }
 
-        // GET: Cursos/Delete/5
+        // GET: Matriculas/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cursos cursos = db.Cursos.Find(id);
-            if (cursos == null)
+            Matricula matricula = db.Matricula.Find(id);
+            if (matricula == null)
             {
                 return HttpNotFound();
             }
-            return View(cursos);
+            return View(matricula);
         }
 
-        // POST: Cursos/Delete/5
+        // POST: Matriculas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Cursos cursos = db.Cursos.Find(id);
-            db.Cursos.Remove(cursos);
+            Matricula matricula = db.Matricula.Find(id);
+            db.Matricula.Remove(matricula);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

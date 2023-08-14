@@ -127,12 +127,16 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CarrerasController.cs" />
     <Compile Include="Controllers\CursosController.cs" />
     <Compile Include="Controllers\EstudiantesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HorariosController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MatriculasController.cs" />
+    <Compile Include="Controllers\PrematriculasController.cs" />
     <Compile Include="Controllers\ProfesoresController.cs" />
+    <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -152,11 +156,22 @@
     <Compile Include="Migrations\202307282209010_Cursos.designer.cs">
       <DependentUpon>202307282209010_Cursos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202308131902119_prueba.cs" />
+    <Compile Include="Migrations\202308131902119_prueba.designer.cs">
+      <DependentUpon>202308131902119_prueba.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308132328174_Matriculas.cs" />
+    <Compile Include="Migrations\202308132328174_Matriculas.designer.cs">
+      <DependentUpon>202308132328174_Matriculas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Carreras.cs" />
     <Compile Include="Models\Context.cs" />
     <Compile Include="Models\Cursos.cs" />
     <Compile Include="Models\Estudiantes.cs" />
     <Compile Include="Models\Horarios.cs" />
+    <Compile Include="Models\Matricula.cs" />
+    <Compile Include="Models\Prematricula.cs" />
     <Compile Include="Models\Profesores.cs" />
     <Compile Include="Models\Usuarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -236,6 +251,26 @@
     <Content Include="Views\Horarios\Details.cshtml" />
     <Content Include="Views\Horarios\Edit.cshtml" />
     <Content Include="Views\Horarios\Index.cshtml" />
+    <Content Include="Views\Usuarios\Create.cshtml" />
+    <Content Include="Views\Usuarios\Delete.cshtml" />
+    <Content Include="Views\Usuarios\Details.cshtml" />
+    <Content Include="Views\Usuarios\Edit.cshtml" />
+    <Content Include="Views\Usuarios\Index.cshtml" />
+    <Content Include="Views\Prematriculas\Create.cshtml" />
+    <Content Include="Views\Prematriculas\Delete.cshtml" />
+    <Content Include="Views\Prematriculas\Details.cshtml" />
+    <Content Include="Views\Prematriculas\Edit.cshtml" />
+    <Content Include="Views\Prematriculas\Index.cshtml" />
+    <Content Include="Views\Matriculas\Create.cshtml" />
+    <Content Include="Views\Matriculas\Delete.cshtml" />
+    <Content Include="Views\Matriculas\Details.cshtml" />
+    <Content Include="Views\Matriculas\Edit.cshtml" />
+    <Content Include="Views\Matriculas\Index.cshtml" />
+    <Content Include="Views\Carreras\Create.cshtml" />
+    <Content Include="Views\Carreras\Delete.cshtml" />
+    <Content Include="Views\Carreras\Details.cshtml" />
+    <Content Include="Views\Carreras\Edit.cshtml" />
+    <Content Include="Views\Carreras\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -280,6 +315,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202307282209010_Cursos.resx">
       <DependentUpon>202307282209010_Cursos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308131902119_prueba.resx">
+      <DependentUpon>202308131902119_prueba.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308132328174_Matriculas.resx">
+      <DependentUpon>202308132328174_Matriculas.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

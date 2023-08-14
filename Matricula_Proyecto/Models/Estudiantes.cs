@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -28,6 +29,18 @@ namespace Matricula_Proyecto.Models
 
         [Display(Name = "Telefono")]
         public string telefono_estudiante { get; set; }
+
+        public int carrera_id { get; set; }
+
+        public int usuario_id { get; set; }
+
+        [ForeignKey("usuario_id")]
+        public Usuarios usuario { get; set; }
+
+        [ForeignKey("carrera_id")]
+        public Carreras Carrera { get; set; }
+
+
 
 
 

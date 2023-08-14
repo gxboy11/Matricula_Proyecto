@@ -10,107 +10,116 @@ using Matricula_Proyecto.Models;
 
 namespace Matricula_Proyecto.Controllers
 {
-    public class CursosController : Controller
+    public class PrematriculasController : Controller
     {
         private Context db = new Context();
 
-        // GET: Cursos
+        // GET: Prematriculas
         public ActionResult Index()
         {
-            return View(db.Cursos.ToList());
+            var prematricula = db.Prematricula.Include(p => p.Estudiante).Include(p => p.horario);
+            return View(prematricula.ToList());
         }
 
-        // GET: Cursos/Details/5
+        // GET: Prematriculas/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cursos cursos = db.Cursos.Find(id);
-            if (cursos == null)
+            Prematricula prematricula = db.Prematricula.Find(id);
+            if (prematricula == null)
             {
                 return HttpNotFound();
             }
-            return View(cursos);
+            return View(prematricula);
         }
 
-        // GET: Cursos/Create
+        // GET: Prematriculas/Create
         public ActionResult Create()
         {
+            ViewBag.estudiante_id = new SelectList(db.Estudiantes, "estudiante_id", "nombre_estudiante");
+            ViewBag.horario_id = new SelectList(db.Horarios, "horario_id", "dia_semana");
             return View();
         }
 
-        // POST: Cursos/Create
+        // POST: Prematriculas/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "curso_id,nombre_curso,descripcion,creditos_curso,carrera_id")] Cursos cursos)
+        public ActionResult Create([Bind(Include = "prematricula_id,estudiante_id,horario_id")] Prematricula prematricula)
         {
             if (ModelState.IsValid)
             {
-                db.Cursos.Add(cursos);
+                db.Prematricula.Add(prematricula);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(cursos);
+            ViewBag.estudiante_id = new SelectList(db.Estudiantes, "estudiante_id", "nombre_estudiante", prematricula.estudiante_id);
+            ViewBag.horario_id = new SelectList(db.Horarios, "horario_id", "dia_semana", prematricula.horario_id);
+            return View(prematricula);
         }
 
-        // GET: Cursos/Edit/5
+        // GET: Prematriculas/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cursos cursos = db.Cursos.Find(id);
-            if (cursos == null)
+            Prematricula prematricula = db.Prematricula.Find(id);
+            if (prematricula == null)
             {
                 return HttpNotFound();
             }
-            return View(cursos);
+            ViewBag.estudiante_id = new SelectList(db.Estudiantes, "estudiante_id", "nombre_estudiante", prematricula.estudiante_id);
+            ViewBag.horario_id = new SelectList(db.Horarios, "horario_id", "dia_semana", prematricula.horario_id);
+            return View(prematricula);
         }
 
-        // POST: Cursos/Edit/5
+        // POST: Prematriculas/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "curso_id,nombre_curso,descripcion,creditos_curso,carrera_id")] Cursos cursos)
+        public ActionResult Edit([Bind(Include = "prematricula_id,estudiante_id,horario_id")] Prematricula prematricula)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(cursos).State = EntityState.Modified;
+                db.Entry(prematricula).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(cursos);
+            ViewBag.estudiante_id = new SelectList(db.Estudiantes, "estudiante_id", "nombre_estudiante", prematricula.estudiante_id);
+            ViewBag.horario_id = new SelectList(db.Horarios, "horario_id", "dia_semana", prematricula.horario_id);
+            return View(prematricula);
         }
 
-        // GET: Cursos/Delete/5
+        // GET: Prematriculas/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cursos cursos = db.Cursos.Find(id);
-            if (cursos == null)
+            Prematricula prematricula = db.Prematricula.Find(id);
+            if (prematricula == null)
             {
                 return HttpNotFound();
             }
-            return View(cursos);
+            return View(prematricula);
         }
 
-        // POST: Cursos/Delete/5
+        // POST: Prematriculas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Cursos cursos = db.Cursos.Find(id);
-            db.Cursos.Remove(cursos);
+            Prematricula prematricula = db.Prematricula.Find(id);
+            db.Prematricula.Remove(prematricula);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -19,5 +19,8 @@ namespace Matricula_Proyecto.Models
 
         [Display(Name = "Creditos del Curso")]
         public int creditos_curso { get; set; }
+
+        [Display(Name = "Plan de carrera al que pertenece")]
+        public string carrera { get; set; }
     }
 }
