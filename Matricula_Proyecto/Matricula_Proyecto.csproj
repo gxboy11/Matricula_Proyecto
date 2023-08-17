@@ -56,12 +56,18 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.9\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.9\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -127,12 +133,15 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\API\HorariosController.cs" />
     <Compile Include="Controllers\CarrerasController.cs" />
     <Compile Include="Controllers\CursosController.cs" />
     <Compile Include="Controllers\EstudiantesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HorariosController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ProcesoMatricula\PrematriculaController.cs" />
     <Compile Include="Controllers\MatriculasController.cs" />
     <Compile Include="Controllers\PrematriculasController.cs" />
     <Compile Include="Controllers\ProfesoresController.cs" />
@@ -140,29 +149,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202306270358587_Tabla_Usuarios.cs" />
-    <Compile Include="Migrations\202306270358587_Tabla_Usuarios.designer.cs">
-      <DependentUpon>202306270358587_Tabla_Usuarios.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202307182047202_Estudiantes.cs" />
-    <Compile Include="Migrations\202307182047202_Estudiantes.designer.cs">
-      <DependentUpon>202307182047202_Estudiantes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202307182135427_Profesores.cs" />
-    <Compile Include="Migrations\202307182135427_Profesores.designer.cs">
-      <DependentUpon>202307182135427_Profesores.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202307282209010_Cursos.cs" />
-    <Compile Include="Migrations\202307282209010_Cursos.designer.cs">
-      <DependentUpon>202307282209010_Cursos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202308131902119_prueba.cs" />
-    <Compile Include="Migrations\202308131902119_prueba.designer.cs">
-      <DependentUpon>202308131902119_prueba.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202308132328174_Matriculas.cs" />
-    <Compile Include="Migrations\202308132328174_Matriculas.designer.cs">
-      <DependentUpon>202308132328174_Matriculas.cs</DependentUpon>
+    <Compile Include="Migrations\202308162113018_SolucionBD.cs" />
+    <Compile Include="Migrations\202308162113018_SolucionBD.designer.cs">
+      <DependentUpon>202308162113018_SolucionBD.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Carreras.cs" />
@@ -231,21 +220,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Login\Create.cshtml" />
-    <Content Include="Views\Estudiantes\Index.cshtml" />
-    <Content Include="Views\Estudiantes\Create.cshtml" />
-    <Content Include="Views\Estudiantes\Edit.cshtml" />
-    <Content Include="Views\Estudiantes\Details.cshtml" />
-    <Content Include="Views\Estudiantes\Delete.cshtml" />
     <Content Include="Views\Profesores\Index.cshtml" />
     <Content Include="Views\Profesores\Create.cshtml" />
     <Content Include="Views\Profesores\Edit.cshtml" />
     <Content Include="Views\Profesores\Details.cshtml" />
     <Content Include="Views\Profesores\Delete.cshtml" />
-    <Content Include="Views\Cursos\Create.cshtml" />
-    <Content Include="Views\Cursos\Delete.cshtml" />
-    <Content Include="Views\Cursos\Details.cshtml" />
-    <Content Include="Views\Cursos\Edit.cshtml" />
-    <Content Include="Views\Cursos\Index.cshtml" />
     <Content Include="Views\Horarios\Create.cshtml" />
     <Content Include="Views\Horarios\Delete.cshtml" />
     <Content Include="Views\Horarios\Details.cshtml" />
@@ -271,6 +250,17 @@
     <Content Include="Views\Carreras\Details.cshtml" />
     <Content Include="Views\Carreras\Edit.cshtml" />
     <Content Include="Views\Carreras\Index.cshtml" />
+    <Content Include="Views\Prematricula\Index.cshtml" />
+    <Content Include="Views\Cursos\Create.cshtml" />
+    <Content Include="Views\Cursos\Delete.cshtml" />
+    <Content Include="Views\Cursos\Details.cshtml" />
+    <Content Include="Views\Cursos\Edit.cshtml" />
+    <Content Include="Views\Cursos\Index.cshtml" />
+    <Content Include="Views\Estudiantes\Create.cshtml" />
+    <Content Include="Views\Estudiantes\Delete.cshtml" />
+    <Content Include="Views\Estudiantes\Details.cshtml" />
+    <Content Include="Views\Estudiantes\Edit.cshtml" />
+    <Content Include="Views\Estudiantes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -304,23 +294,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202306270358587_Tabla_Usuarios.resx">
-      <DependentUpon>202306270358587_Tabla_Usuarios.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202307182047202_Estudiantes.resx">
-      <DependentUpon>202307182047202_Estudiantes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202307182135427_Profesores.resx">
-      <DependentUpon>202307182135427_Profesores.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202307282209010_Cursos.resx">
-      <DependentUpon>202307282209010_Cursos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202308131902119_prueba.resx">
-      <DependentUpon>202308131902119_prueba.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202308132328174_Matriculas.resx">
-      <DependentUpon>202308132328174_Matriculas.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202308162113018_SolucionBD.resx">
+      <DependentUpon>202308162113018_SolucionBD.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -20,7 +21,12 @@ namespace Matricula_Proyecto.Models
         [Display(Name = "Creditos del Curso")]
         public int creditos_curso { get; set; }
 
+
+
         [Display(Name = "Plan de carrera al que pertenece")]
-        public string carrera { get; set; }
+        public int carrera_id { get; set; }
+
+        [ForeignKey("carrera_id")]
+        public Carreras carrera { get; set; }
     }
 }

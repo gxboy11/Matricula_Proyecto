@@ -19,5 +19,8 @@ namespace Matricula_Proyecto.Models
 
         [Display(Name = "Rol")]
         public string rol { get; set; }
+
+        [Display(Name = "Estado de Usuar~io (Activo, Inactivo)")]
+        public bool estado { get; set; }
     }
 }

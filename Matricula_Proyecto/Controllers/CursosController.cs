@@ -17,7 +17,8 @@ namespace Matricula_Proyecto.Controllers
         // GET: Cursos
         public ActionResult Index()
         {
-            return View(db.Cursos.ToList());
+            var cursos = db.Cursos.Include(c => c.carrera);
+            return View(cursos.ToList());
         }
 
         // GET: Cursos/Details/5
@@ -38,6 +39,7 @@ namespace Matricula_Proyecto.Controllers
         // GET: Cursos/Create
         public ActionResult Create()
         {
+            ViewBag.carrera_id = new SelectList(db.Carrera, "carrera_id", "nombre_carrera");
             return View();
         }
 
@@ -55,6 +57,7 @@ namespace Matricula_Proyecto.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.carrera_id = new SelectList(db.Carrera, "carrera_id", "nombre_carrera", cursos.carrera_id);
             return View(cursos);
         }
 
@@ -70,6 +73,7 @@ namespace Matricula_Proyecto.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.carrera_id = new SelectList(db.Carrera, "carrera_id", "nombre_carrera", cursos.carrera_id);
             return View(cursos);
         }
 
@@ -86,6 +90,7 @@ namespace Matricula_Proyecto.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.carrera_id = new SelectList(db.Carrera, "carrera_id", "nombre_carrera", cursos.carrera_id);
             return View(cursos);
         }
 

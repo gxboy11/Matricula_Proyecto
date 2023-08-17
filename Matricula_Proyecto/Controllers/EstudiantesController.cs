@@ -1,115 +1,136 @@
-﻿using Matricula_Proyecto.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Matricula_Proyecto.Models;
 
 namespace Matricula_Proyecto.Controllers
 {
     public class EstudiantesController : Controller
     {
-        private readonly Context _context = new Context();
+        private Context db = new Context();
 
         // GET: Estudiantes
-
-
         public ActionResult Index()
         {
-            var estudiantes = _context.Estudiantes.ToList();
-            return View(estudiantes);
+            var estudiantes = db.Estudiantes.Include(e => e.Carrera).Include(e => e.usuario);
+            return View(estudiantes.ToList());
         }
 
-        
-
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        //[Authorize(Roles = "ADMIN")]
-        [HttpPost]
-        public ActionResult Create(Estudiantes estudiante)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Estudiantes.Add(estudiante);
-                _context.SaveChanges();
-            }
-            return View(estudiante);
-        }
-
-        //[Authorize(Roles = "ADMIN")]
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var estudiante = _context.Estudiantes.SingleOrDefault(e => e.estudiante_id == id);
-
-            if (estudiante == null)
-            {
-                return HttpNotFound();
-            }
-            return View(estudiante);
-        }
-
-        //[Authorize(Roles = "ADMIN")]
-        [HttpPost]
-        public ActionResult Edit(Estudiantes estudiante) //Guarda modificacion
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Entry(estudiante).State = EntityState.Modified;
-                _context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(estudiante);
-        }
-
-        //[Authorize(Roles = "PROFESOR, ESTUDIANTE")]
+        // GET: Estudiantes/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var estudiante = _context.Estudiantes.SingleOrDefault(e => e.estudiante_id == id);
-
-            if (estudiante == null)
+            Estudiantes estudiantes = db.Estudiantes.Find(id);
+            if (estudiantes == null)
             {
                 return HttpNotFound();
             }
-            return View(estudiante);
+            return View(estudiantes);
         }
 
-        //[Authorize(Roles = "ADMIN")]
+        // GET: Estudiantes/Create
+        public ActionResult Create()
+        {
+            ViewBag.carrera_id = new SelectList(db.Carrera, "carrera_id", "nombre_carrera");
+            ViewBag.usuario_id = new SelectList(db.Usuarios, "usuario_id", "usuario_nombre");
+            return View();
+        }
+
+        // POST: Estudiantes/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "estudiante_id,nombre_estudiante,apellido_estudiante,correo_estudiante,fecha_nacimiento_estudiante,direccion_estudiante,telefono_estudiante,carrera_id,usuario_id")] Estudiantes estudiantes)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Estudiantes.Add(estudiantes);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.carrera_id = new SelectList(db.Carrera, "carrera_id", "nombre_carrera", estudiantes.carrera_id);
+            ViewBag.usuario_id = new SelectList(db.Usuarios, "usuario_id", "usuario_nombre", estudiantes.usuario_id);
+            return View(estudiantes);
+        }
+
+        // GET: Estudiantes/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Estudiantes estudiantes = db.Estudiantes.Find(id);
+            if (estudiantes == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.carrera_id = new SelectList(db.Carrera, "carrera_id", "nombre_carrera", estudiantes.carrera_id);
+            ViewBag.usuario_id = new SelectList(db.Usuarios, "usuario_id", "usuario_nombre", estudiantes.usuario_id);
+            return View(estudiantes);
+        }
+
+        // POST: Estudiantes/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "estudiante_id,nombre_estudiante,apellido_estudiante,correo_estudiante,fecha_nacimiento_estudiante,direccion_estudiante,telefono_estudiante,carrera_id,usuario_id")] Estudiantes estudiantes)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(estudiantes).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.carrera_id = new SelectList(db.Carrera, "carrera_id", "nombre_carrera", estudiantes.carrera_id);
+            ViewBag.usuario_id = new SelectList(db.Usuarios, "usuario_id", "usuario_nombre", estudiantes.usuario_id);
+            return View(estudiantes);
+        }
+
+        // GET: Estudiantes/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var estudiante = _context.Estudiantes.SingleOrDefault(e => e.estudiante_id == id);
-
-            if (estudiante == null)
+            Estudiantes estudiantes = db.Estudiantes.Find(id);
+            if (estudiantes == null)
             {
                 return HttpNotFound();
             }
-            return View(estudiante);
+            return View(estudiantes);
         }
 
-        //[Authorize(Roles = "ADMIN")]
-        [HttpPost]
-        public ActionResult Delete(int id) //Guarda modificacion
+        // POST: Estudiantes/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
         {
-            var customer = _context.Estudiantes.SingleOrDefault(e => e.estudiante_id == id);
-            _context.Estudiantes.Remove(customer ?? throw new InvalidOperationException());
-            _context.SaveChanges();
+            Estudiantes estudiantes = db.Estudiantes.Find(id);
+            db.Estudiantes.Remove(estudiantes);
+            db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Matricula_Proyecto.Models
         [Display(Name = "Estudiante")]
         public int estudiante_id { get; set; }
 
-        [Display(Name = "HOrario matriculado")]
+        [Display(Name = "Horario matriculado")]
         public int horario_id { get; set; }
 
         [ForeignKey("estudiante_id")]

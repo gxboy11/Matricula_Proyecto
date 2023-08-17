@@ -46,7 +46,7 @@ namespace Matricula_Proyecto.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "usuario_id,usuario_nombre,password,rol")] Usuarios usuarios)
+        public ActionResult Create([Bind(Include = "usuario_id,usuario_nombre,password,rol,estado")] Usuarios usuarios)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace Matricula_Proyecto.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "usuario_id,usuario_nombre,password,rol")] Usuarios usuarios)
+        public ActionResult Edit([Bind(Include = "usuario_id,usuario_nombre,password,rol,estado")] Usuarios usuarios)
         {
             if (ModelState.IsValid)
             {

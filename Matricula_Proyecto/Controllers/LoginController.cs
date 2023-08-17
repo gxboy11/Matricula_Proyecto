@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 
@@ -10,6 +11,8 @@ namespace Matricula_Proyecto.Controllers
 {
     public class LoginController : Controller
     {
+        public int _estudiante;
+
         private readonly Context _context = new Context();
 
         // GET: Login
@@ -28,6 +31,7 @@ namespace Matricula_Proyecto.Controllers
                 if (usuario != null && usuario.password == user.password)
                 {
                     // Autenticación exitosa
+                    Session["UserName"] = usuario.usuario_nombre;
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -36,7 +40,7 @@ namespace Matricula_Proyecto.Controllers
                     ModelState.AddModelError("", "Credenciales inválidas. Por favor, intenta nuevamente.");
                 }
             }
-            // Si el modelo no es válido, muestra la vista de login con los mensajes de error
+
             return View(user);
         }
 
@@ -52,6 +56,8 @@ namespace Matricula_Proyecto.Controllers
             {
                 _context.Usuarios.Add(user);
                 _context.SaveChanges();
+
+                return RedirectToAction("Index");
             }
             return View(user);
         }

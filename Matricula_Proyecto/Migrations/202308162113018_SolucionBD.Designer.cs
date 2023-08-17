@@ -7,13 +7,13 @@ namespace Matricula_Proyecto.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class Tabla_Usuarios : IMigrationMetadata
+    public sealed partial class SolucionBD : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Tabla_Usuarios));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(SolucionBD));
         
         string IMigrationMetadata.Id
         {
-            get { return "202306270358587_Tabla_Usuarios"; }
+            get { return "202308162113018_SolucionBD"; }
         }
         
         string IMigrationMetadata.Source

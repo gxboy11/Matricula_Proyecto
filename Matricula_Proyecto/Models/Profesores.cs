@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -31,6 +32,13 @@ namespace Matricula_Proyecto.Models
 
         [Display(Name = "Area Especializacion")]
         public string area_espec { get; set; }
+
+
+
+        public int usuario_id { get; set; }
+
+        [ForeignKey("usuario_id")]
+        public Usuarios usuario { get; set; }
 
     }
 }

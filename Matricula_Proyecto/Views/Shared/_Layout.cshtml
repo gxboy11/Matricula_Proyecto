@@ -22,12 +22,21 @@
                     <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Estudiantes", "Index", "Estudiantes", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Cursos", "Index", "Cursos", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Carreras", "Index", "Carreras", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Profesores", "Index", "Profesores", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Horarios", "Index", "Horarios", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Usuarios", "Index", "Usuarios", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Prematricula", "Index", "Prematriculas", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Matricula", "Index", "Matriculas", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Iniciar Sesión", "Index", "Login", new { area = "" }, new { @class = "nav-link" })</li>
+                    @if (Session["UserName"] != null)
+                    {
+                        <span>Bienvenido, @Session["UserName"]</span>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Iniciar Sesión", "Index", "Login", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
+
                 </ul>
             </div>
         </div>
