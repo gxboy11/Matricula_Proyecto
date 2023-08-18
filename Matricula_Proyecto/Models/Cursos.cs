@@ -21,6 +21,9 @@ namespace Matricula_Proyecto.Models
         [Display(Name = "Creditos del Curso")]
         public int creditos_curso { get; set; }
 
+        [Display(Name = "Precio del curso")]
+        public float precio_curso { get; set; }
+
 
 
         [Display(Name = "Plan de carrera al que pertenece")]

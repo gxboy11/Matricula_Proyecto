@@ -34,6 +34,7 @@ namespace Matricula_Proyecto.Controllers
                 _context.SaveChanges();
             }
             return View(profesor);
+            
         }
 
         public ActionResult Edit(int? id)

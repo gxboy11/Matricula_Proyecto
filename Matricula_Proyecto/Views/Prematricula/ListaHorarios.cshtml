@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Matricula_Proyecto.Models.Horarios>
+
+@{
+    ViewBag.Title = "ListaHorarios";
+}
+
+<h2>ListaHorarios</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Curso.nombre_curso)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Profesor.nombre_profesor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dia_semana)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.hora_inicio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.hora_final)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Curso.nombre_curso)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Profesor.nombre_profesor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dia_semana)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.hora_inicio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.hora_final)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.horario_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.horario_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.horario_id })
+        </td>
+    </tr>
+}
+
+</table>

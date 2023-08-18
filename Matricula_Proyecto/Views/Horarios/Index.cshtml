@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Horarios</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -29,29 +29,30 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Curso.nombre_curso)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Profesor.nombre_profesor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dia_semana)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.hora_inicio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.hora_final)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.horario_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.horario_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.horario_id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Curso.nombre_curso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Profesor.nombre_profesor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dia_semana)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.hora_inicio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.hora_final)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.horario_id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.horario_id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.horario_id })
+            </td>
+        </tr>
+    }
 
 </table>

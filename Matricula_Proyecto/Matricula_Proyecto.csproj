@@ -135,17 +135,17 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\API\HorariosController.cs" />
-    <Compile Include="Controllers\CarrerasController.cs" />
-    <Compile Include="Controllers\CursosController.cs" />
-    <Compile Include="Controllers\EstudiantesController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\HorariosController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ModelsControllers\CarrerasController.cs" />
+    <Compile Include="Controllers\ModelsControllers\CursosController.cs" />
+    <Compile Include="Controllers\ModelsControllers\EstudiantesController.cs" />
+    <Compile Include="Controllers\ModelsControllers\HomeController.cs" />
+    <Compile Include="Controllers\ModelsControllers\HorariosController.cs" />
+    <Compile Include="Controllers\Login\LoginController.cs" />
     <Compile Include="Controllers\ProcesoMatricula\PrematriculaController.cs" />
-    <Compile Include="Controllers\MatriculasController.cs" />
-    <Compile Include="Controllers\PrematriculasController.cs" />
-    <Compile Include="Controllers\ProfesoresController.cs" />
-    <Compile Include="Controllers\UsuariosController.cs" />
+    <Compile Include="Controllers\ModelsControllers\MatriculasController.cs" />
+    <Compile Include="Controllers\ModelsControllers\PrematriculasController.cs" />
+    <Compile Include="Controllers\ModelsControllers\ProfesoresController.cs" />
+    <Compile Include="Controllers\ModelsControllers\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -153,11 +153,16 @@
     <Compile Include="Migrations\202308162113018_SolucionBD.designer.cs">
       <DependentUpon>202308162113018_SolucionBD.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202308170210325_Precio_Curso.cs" />
+    <Compile Include="Migrations\202308170210325_Precio_Curso.designer.cs">
+      <DependentUpon>202308170210325_Precio_Curso.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Carreras.cs" />
     <Compile Include="Models\Context.cs" />
     <Compile Include="Models\Cursos.cs" />
     <Compile Include="Models\Estudiantes.cs" />
+    <Compile Include="Models\EstudiantesEnEspera.cs" />
     <Compile Include="Models\Horarios.cs" />
     <Compile Include="Models\Matricula.cs" />
     <Compile Include="Models\Prematricula.cs" />
@@ -251,16 +256,19 @@
     <Content Include="Views\Carreras\Edit.cshtml" />
     <Content Include="Views\Carreras\Index.cshtml" />
     <Content Include="Views\Prematricula\Index.cshtml" />
-    <Content Include="Views\Cursos\Create.cshtml" />
-    <Content Include="Views\Cursos\Delete.cshtml" />
-    <Content Include="Views\Cursos\Details.cshtml" />
-    <Content Include="Views\Cursos\Edit.cshtml" />
-    <Content Include="Views\Cursos\Index.cshtml" />
     <Content Include="Views\Estudiantes\Create.cshtml" />
     <Content Include="Views\Estudiantes\Delete.cshtml" />
     <Content Include="Views\Estudiantes\Details.cshtml" />
     <Content Include="Views\Estudiantes\Edit.cshtml" />
     <Content Include="Views\Estudiantes\Index.cshtml" />
+    <Content Include="Views\Prematricula\Prematricula.cshtml" />
+    <Content Include="Views\Cursos\Create.cshtml" />
+    <Content Include="Views\Cursos\Delete.cshtml" />
+    <Content Include="Views\Cursos\Details.cshtml" />
+    <Content Include="Views\Cursos\Edit.cshtml" />
+    <Content Include="Views\Cursos\Index.cshtml" />
+    <Content Include="Views\Prematricula\ListaHorarios.cshtml" />
+    <Content Include="Views\Estudiantes\CrearUsuario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -296,6 +304,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202308162113018_SolucionBD.resx">
       <DependentUpon>202308162113018_SolucionBD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308170210325_Precio_Curso.resx">
+      <DependentUpon>202308170210325_Precio_Curso.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

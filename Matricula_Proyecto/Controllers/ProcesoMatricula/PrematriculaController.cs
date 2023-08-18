@@ -24,7 +24,7 @@ namespace Matricula_Proyecto.Controllers.Matricular
             // Buscar al usuario en la tabla de Usuarios
             Usuarios usuario = db.Usuarios.FirstOrDefault(u => u.usuario_nombre == userName);
 
-             if (usuario != null)
+            if (usuario != null)
             {
                 // Buscar al usuario en la tabla de Estudiantes
                 Estudiantes estudiante = db.Estudiantes.FirstOrDefault(e => e.usuario_id == usuario.usuario_id);
@@ -47,6 +47,25 @@ namespace Matricula_Proyecto.Controllers.Matricular
 
             // Si no se encontró usuario, estudiante o carrera, podrías redirigir a una página de error o manejarlo según tu lógica
             return RedirectToAction("Error");
+        }
+
+        public ActionResult Prematricula() //Create que guarda informacion de la prematricula en la tabla prematricula >:D
+        {
+
+            return View();
+        }
+
+        public ActionResult ListaHorarios(int id)
+        {
+            var horariosPorCurso = db.Horarios.Where(h => h.curso_id == id).ToList();
+
+            var horarios = horariosPorCurso
+                .GroupBy(h => h.dia_semana)
+                .OrderBy(g => g.Key)
+                .ToList();
+
+            ViewBag.CursoNombre = db.Cursos.FirstOrDefault(c => c.curso_id == id)?.nombre_curso;
+            return View(horarios);
         }
     }
 }
