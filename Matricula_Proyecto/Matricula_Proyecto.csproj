@@ -135,17 +135,17 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\API\HorariosController.cs" />
-    <Compile Include="Controllers\CarrerasController.cs" />
-    <Compile Include="Controllers\CursosController.cs" />
-    <Compile Include="Controllers\EstudiantesController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\HorariosController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ModelsController\CarrerasController.cs" />
+    <Compile Include="Controllers\ModelsController\CursosController.cs" />
+    <Compile Include="Controllers\ModelsController\EstudiantesController.cs" />
+    <Compile Include="Controllers\ModelsController\HomeController.cs" />
+    <Compile Include="Controllers\ModelsController\HorariosController.cs" />
+    <Compile Include="Controllers\Login\LoginController.cs" />
     <Compile Include="Controllers\ProcesoMatricula\PrematriculaController.cs" />
-    <Compile Include="Controllers\MatriculasController.cs" />
-    <Compile Include="Controllers\PrematriculasController.cs" />
-    <Compile Include="Controllers\ProfesoresController.cs" />
-    <Compile Include="Controllers\UsuariosController.cs" />
+    <Compile Include="Controllers\ModelsController\MatriculasController.cs" />
+    <Compile Include="Controllers\ModelsController\PrematriculasController.cs" />
+    <Compile Include="Controllers\ModelsController\ProfesoresController.cs" />
+    <Compile Include="Controllers\ModelsController\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
