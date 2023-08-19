@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -37,10 +38,8 @@ namespace Matricula_Proyecto.Controllers
             return View(estudiantes);
         }
 
-        private List<Estudiantes> estudiantesEnEspera = new List<Estudiantes>(); // Almacena temporalmente la informacion de los estudiantes
-        private int carreraEnEspera = 0;
-
         // GET: Estudiantes/Create
+        [HttpGet]
         public ActionResult Create()
         {
             ViewBag.carrera_id = new SelectList(db.Carrera, "carrera_id", "nombre_carrera");
@@ -48,12 +47,12 @@ namespace Matricula_Proyecto.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Estudiantes estudiante)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "estudiante_id,nombre_estudiante,apellido_estudiante,correo_estudiante,fecha_nacimiento_estudiante,direccion_estudiante,telefono_estudiante,carrera_id")] Estudiantes estudiante)
         {
             if (ModelState.IsValid)
             {
-                estudiantesEnEspera.Add(estudiante); // Agregar el estudiante al arreglo temporal
-                estudiantesEnEspera[0].carrera_id = estudiante.carrera_id; // Se ingresa "manualmente" la carrera id
+                Session["EstudianteEnEspera"] = estudiante; // Almacena el estudiante en la sesión
                 return RedirectToAction("CrearUsuario");
             }
             return View(estudiante);
@@ -70,19 +69,19 @@ namespace Matricula_Proyecto.Controllers
         {
             if (ModelState.IsValid)
             {
+                var estudianteEnEspera = (Estudiantes)Session["EstudianteEnEspera"]; // Recupera el estudiante de la sesión
+
                 // Guardar el usuario en la base de datos
                 db.Usuarios.Add(usuario);
                 db.SaveChanges();
 
-                // Asociar el usuario con el último estudiante en el arreglo global
-                var ultimoEstudiante = estudiantesEnEspera.Last();
-                ultimoEstudiante.usuario_id = usuario.usuario_id;
-                db.Estudiantes.Add(ultimoEstudiante);
+                // Asociar el usuario con el estudiante
+                estudianteEnEspera.usuario_id = usuario.usuario_id;
+                db.Estudiantes.Add(estudianteEnEspera);
                 db.SaveChanges();
 
-                // Limpiar el arreglo global después de usarlo
-                carreraEnEspera = 0;
-                estudiantesEnEspera.Clear();
+                // Limpiar la información de la sesión
+                Session.Remove("EstudianteEnEspera");
 
                 return RedirectToAction("Index");
             }

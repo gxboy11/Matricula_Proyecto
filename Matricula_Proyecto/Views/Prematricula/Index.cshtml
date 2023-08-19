@@ -42,7 +42,23 @@
                 @Html.DisplayFor(modelItem => item.creditos_curso)
             </td>
             <td>
-                @Html.ActionLink("Ver Horarios", "ListaHorarios", new { id = item.curso_id })
+                @if (Session["HorariosPrematriculados"] != null)
+                {
+                    List<int> horariosPrematriculados = Session["HorariosPrematriculados"] as List<int>;
+                    if (horariosPrematriculados.Contains(item.curso_id))
+                    {
+                        <span class="text-success">Horario Prematriculado</span>
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Ver Horarios", "ListaHorarios", new { id = item.curso_id })
+                    }
+                }
+                else
+                {
+                    @Html.ActionLink("Ver Horarios", "ListaHorarios", new { id = item.curso_id })
+                }
+
             </td>
         </tr>
     }

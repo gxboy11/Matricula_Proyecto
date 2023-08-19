@@ -16,9 +16,9 @@ namespace Matricula_Proyecto.Controllers.Matricular
         private Context db = new Context();
 
         // GET: Horarios
-        public ActionResult Index()
+        public ActionResult Index() //Lista filtrada por la carrera del estudiante 
         {
-            // Obtener el nombre de usuario de la sesión
+
             string userName = Session["UserName"] as string;
 
             // Buscar al usuario en la tabla de Usuarios
@@ -39,7 +39,6 @@ namespace Matricula_Proyecto.Controllers.Matricular
                         // Obtener los cursos de la carrera
                         List<Cursos> cursosCarrera = db.Cursos.Where(curso => curso.carrera_id == carrera.carrera_id).ToList();
 
-                        // Puedes enviar cursosCarrera a la vista para mostrarlos
                         return View(cursosCarrera);
                     }
                 }
@@ -49,10 +48,30 @@ namespace Matricula_Proyecto.Controllers.Matricular
             return RedirectToAction("Error");
         }
 
-        public ActionResult Prematricula() //Create que guarda informacion de la prematricula en la tabla prematricula >:D
+        [HttpGet]
+        public ActionResult Prematricula()
         {
-
             return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult Prematricula(int horarioId) //Create que guarda informacion de la prematricula en la tabla prematricula >:D
+        {
+            var horarioSeleccionado = db.Horarios.FirstOrDefault(h => h.horario_id == horarioId);
+            if (horarioSeleccionado != null)
+            {
+                // Agregar el horario seleccionado a la sesión
+                List<Horarios> horariosPrematriculados = Session["HorariosPrematriculados"] as List<Horarios>;
+                if (horariosPrematriculados == null)
+                {
+                    horariosPrematriculados = new List<Horarios>();
+                }
+                horariosPrematriculados.Add(horarioSeleccionado);
+                Session["HorariosPrematriculados"] = horariosPrematriculados;
+            }
+
+            return RedirectToAction("Index", new { cursoId = horarioSeleccionado.curso_id });
         }
 
         public ActionResult ListaHorarios(int id)

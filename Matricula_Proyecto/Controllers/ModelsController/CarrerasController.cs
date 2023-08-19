@@ -31,7 +31,6 @@ namespace Matricula_Proyecto.Controllers
             if (carreras == null)
             {
                 return HttpNotFound();
-
             }
             return View(carreras);
         }

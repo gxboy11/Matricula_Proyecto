@@ -20,6 +20,8 @@ namespace Matricula_Proyecto.Controllers
             return View(profesor);
         }
 
+        // GET: Profesores/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
@@ -30,11 +32,41 @@ namespace Matricula_Proyecto.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Profesores.Add(profesor);
-                _context.SaveChanges();
+                Session["ProfesorEnEspera"] = profesor; // Almacena el profesor en la sesión
+                return RedirectToAction("CrearUsuario");
             }
             return View(profesor);
-            
+
+        }
+
+        [HttpGet]
+        public ActionResult CrearUsuario()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CrearUsuario(Usuarios usuario)
+        {
+            if (ModelState.IsValid)
+            {
+                var profesorEnEspera = (Profesores)Session["ProfesorEnEspera"]; // Recupera el profesor de la sesión
+
+                // Guardar el usuario en la base de datos
+                _context.Usuarios.Add(usuario);
+                _context.SaveChanges();
+
+                // Asociar el usuario con el estudiante
+                profesorEnEspera.usuario_id = usuario.usuario_id;
+                _context.Profesores.Add(profesorEnEspera);
+                _context.SaveChanges();
+
+                // Limpiar la información de la sesión
+                Session.Remove("ProfesorEnEspera");
+
+                return RedirectToAction("Index");
+            }
+            return View(usuario);
         }
 
         public ActionResult Edit(int? id)
