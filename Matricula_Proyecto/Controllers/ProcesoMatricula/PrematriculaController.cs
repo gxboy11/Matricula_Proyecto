@@ -56,19 +56,15 @@ namespace Matricula_Proyecto.Controllers.Matricular
 
 
         [HttpPost]
-        public ActionResult Prematricula(int horarioId) //Create que guarda informacion de la prematricula en la tabla prematricula >:D
+        public ActionResult Prematricula(int horarioId)
         {
             var horarioSeleccionado = db.Horarios.FirstOrDefault(h => h.horario_id == horarioId);
             if (horarioSeleccionado != null)
             {
-                // Agregar el horario seleccionado a la sesión
-                List<Horarios> horariosPrematriculados = Session["HorariosPrematriculados"] as List<Horarios>;
-                if (horariosPrematriculados == null)
-                {
-                    horariosPrematriculados = new List<Horarios>();
-                }
-                horariosPrematriculados.Add(horarioSeleccionado);
-                Session["HorariosPrematriculados"] = horariosPrematriculados;
+                // Agregar el ID del curso a la lista en la sesión
+                List<int> cursosPrematriculados = Session["HorariosPrematriculados"] as List<int> ?? new List<int>();
+                cursosPrematriculados.Add(horarioSeleccionado.curso_id);
+                Session["HorariosPrematriculados"] = cursosPrematriculados;
             }
 
             return RedirectToAction("Index", new { cursoId = horarioSeleccionado.curso_id });
@@ -84,7 +80,51 @@ namespace Matricula_Proyecto.Controllers.Matricular
                 .ToList();
 
             ViewBag.CursoNombre = db.Cursos.FirstOrDefault(c => c.curso_id == id)?.nombre_curso;
+            ViewBag.ProfesorNomber = db.Profesores.FirstOrDefault(p => p.profesor_id == id)?.profesor_id;
             return View(horarios);
+        }
+
+
+        public ActionResult Matricular()
+        {
+            // Supongo que tienes un mecanismo para obtener el ID del estudiante
+            int idEstudiante = (int)Session["EstudianteId"];
+
+            if (Session["HorariosPrematriculados"] != null)
+            {
+                List<int> cursosPrematriculados = (List<int>)Session["HorariosPrematriculados"];
+
+                foreach (int idHorario in cursosPrematriculados)
+                {
+                    Matricula matricula = new Matricula
+                    {
+                        estudiante_id = idEstudiante,
+                        horario_id = idHorario
+                    };
+
+                    db.Matricula.Add(matricula);
+                }
+
+                db.SaveChanges();
+                Session["HorariosPrematriculados"] = null;
+            }
+
+            return RedirectToAction("MisCursos"); // Redirige a Mis Cursos
+        }
+
+        public ActionResult CursosMatriculados()
+        {
+            // Obtener el ID del estudiante desde la sesión
+            int idEstudiante = (int)Session["EstudianteId"];
+
+            // Buscar las matrículas del estudiante
+            var matriculasEstudiante = db.Matricula
+                .Include(m => m.horario)
+                .Include(m => m.horario.Curso)
+                .Where(m => m.estudiante_id == idEstudiante)
+                .ToList();
+
+            return View(matriculasEstudiante);
         }
     }
 }

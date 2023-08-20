@@ -28,9 +28,10 @@
                     <li>@Html.ActionLink("Usuarios", "Index", "Usuarios", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Prematricula", "Index", "Prematriculas", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Matricula", "Index", "Matriculas", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Mis Cursos Matriculados", "CursosMatriculados", "Prematricula")</li>
                     @if (Session["UserName"] != null)
                     {
-                        <span>Bienvenido, @Session["UserName"]</span>
+                        <span>Bienvenido, @Session["EstudianteNombre"]</span>
                     }
                     else
                     {

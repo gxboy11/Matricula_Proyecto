@@ -5,10 +5,6 @@
 }
 
 <h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -42,25 +38,19 @@
                 @Html.DisplayFor(modelItem => item.creditos_curso)
             </td>
             <td>
-                @if (Session["HorariosPrematriculados"] != null)
+                @if (Session["HorariosPrematriculados"] != null && ((List<int>)Session["HorariosPrematriculados"]).Contains(item.curso_id))
                 {
-                    List<int> horariosPrematriculados = Session["HorariosPrematriculados"] as List<int>;
-                    if (horariosPrematriculados.Contains(item.curso_id))
-                    {
-                        <span class="text-success">Horario Prematriculado</span>
-                    }
-                    else
-                    {
-                        @Html.ActionLink("Ver Horarios", "ListaHorarios", new { id = item.curso_id })
-                    }
+                    <span class="text-success">Horario Prematriculado</span>
                 }
                 else
                 {
                     @Html.ActionLink("Ver Horarios", "ListaHorarios", new { id = item.curso_id })
                 }
-
             </td>
         </tr>
     }
-
 </table>
+@using (Html.BeginForm("Matricular", "Prematricula"))
+{
+    <button type="submit" class="btn btn-primary">Matricular</button>
+}

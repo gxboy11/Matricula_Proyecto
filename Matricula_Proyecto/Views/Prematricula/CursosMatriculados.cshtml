@@ -1,0 +1,29 @@
+﻿@model List<Matricula_Proyecto.Models.Matricula>
+
+<h2>Cursos Matriculados</h2>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <tr>
+            <th>Nombre Curso</th>
+            <th>Día Semana</th>
+            <th>Hora Inicio</th>
+            <th>Hora Final</th>
+        </tr>
+        @foreach (var matricula in Model)
+        {
+            <tr>
+                <td>@matricula.horario.Curso.nombre_curso</td>
+                <td>@matricula.horario.dia_semana</td>
+                <td>@matricula.horario.hora_inicio</td>
+                <td>@matricula.horario.hora_final</td>
+                @*<td>@matricula.horario.Profesor.nombre_profesor</td>*@
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>No tienes cursos matriculados.</p>
+}

@@ -11,8 +11,6 @@ namespace Matricula_Proyecto.Controllers
 {
     public class LoginController : Controller
     {
-        public int _estudiante;
-
         private readonly Context _context = new Context();
 
         // GET: Login
@@ -32,6 +30,15 @@ namespace Matricula_Proyecto.Controllers
                 {
                     // Autenticación exitosa
                     Session["UserName"] = usuario.usuario_nombre;
+
+                    // Buscar al estudiante correspondiente
+                    var estudiante = _context.Estudiantes.FirstOrDefault(e => e.usuario_id == usuario.usuario_id);
+                    if (estudiante != null)
+                    {
+                        Session["EstudianteId"] = estudiante.estudiante_id; // Guardar el nombre del estudiante en la sesión
+                        Session["EstudianteNombre"] = estudiante.nombre_estudiante; // Guardar el nombre del estudiante en la sesión
+                    }
+
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -43,6 +50,7 @@ namespace Matricula_Proyecto.Controllers
 
             return View(user);
         }
+
 
         public ActionResult Create()
         {

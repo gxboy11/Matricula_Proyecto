@@ -10,6 +10,7 @@
         {
             <li>@horario.hora_inicio</li>
             <li>@horario.hora_final</li>
+            <li>@horario.Profesor.nombre_profesor</li>
             <form method="post" action="@Url.Action("Prematricula", "Prematricula")">
                 <input type="hidden" name="horarioId" value="@horario.horario_id" />
                 <button type="submit" class="btn btn-success">Prematricular</button>
