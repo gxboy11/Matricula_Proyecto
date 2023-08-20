@@ -87,7 +87,7 @@ namespace Matricula_Proyecto.Controllers.Matricular
 
         public ActionResult Matricular()
         {
-            // Supongo que tienes un mecanismo para obtener el ID del estudiante
+
             int idEstudiante = (int)Session["EstudianteId"];
 
             if (Session["HorariosPrematriculados"] != null)
@@ -103,14 +103,25 @@ namespace Matricula_Proyecto.Controllers.Matricular
                     };
 
                     db.Matricula.Add(matricula);
+
+                    // Crear una nueva calificación asociada a la matrícula
+                    Calificaciones calificacion = new Calificaciones
+                    {
+                        estudiante_id = idEstudiante,
+                        horario_id = idHorario,
+                        nota_curso = 0 // Puedes establecer la calificación inicial aquí
+                    };
+
+                    db.Calificaciones.Add(calificacion);
                 }
 
                 db.SaveChanges();
                 Session["HorariosPrematriculados"] = null;
             }
 
-            return RedirectToAction("MisCursos"); // Redirige a Mis Cursos
+            return RedirectToAction("CursosMatriculados"); // Redirige a Mis Cursos
         }
+
 
         public ActionResult CursosMatriculados()
         {
@@ -121,6 +132,7 @@ namespace Matricula_Proyecto.Controllers.Matricular
             var matriculasEstudiante = db.Matricula
                 .Include(m => m.horario)
                 .Include(m => m.horario.Curso)
+                .Include(m => m.horario.Profesor)
                 .Where(m => m.estudiante_id == idEstudiante)
                 .ToList();
 

@@ -139,6 +139,7 @@
     <Compile Include="Controllers\ModelsController\HomeController.cs" />
     <Compile Include="Controllers\ModelsController\HorariosController.cs" />
     <Compile Include="Controllers\Login\LoginController.cs" />
+    <Compile Include="Controllers\Notas\NotasController.cs" />
     <Compile Include="Controllers\ProcesoMatricula\PrematriculaController.cs" />
     <Compile Include="Controllers\ModelsController\MatriculasController.cs" />
     <Compile Include="Controllers\ModelsController\PrematriculasController.cs" />
@@ -155,7 +156,12 @@
     <Compile Include="Migrations\202308170210325_Precio_Curso.designer.cs">
       <DependentUpon>202308170210325_Precio_Curso.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202308200140349_Calificaciones.cs" />
+    <Compile Include="Migrations\202308200140349_Calificaciones.designer.cs">
+      <DependentUpon>202308200140349_Calificaciones.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Calificaciones.cs" />
     <Compile Include="Models\Carreras.cs" />
     <Compile Include="Models\Context.cs" />
     <Compile Include="Models\Cursos.cs" />
@@ -268,6 +274,9 @@
     <Content Include="Views\Estudiantes\CrearUsuario.cshtml" />
     <Content Include="Views\Profesores\CrearUsuario.cshtml" />
     <Content Include="Views\Prematricula\CursosMatriculados.cshtml" />
+    <Content Include="Views\Notas\Index.cshtml" />
+    <Content Include="Views\Notas\Calificaciones.cshtml" />
+    <Content Include="Views\Notas\EditarCalificacion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -307,6 +316,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202308170210325_Precio_Curso.resx">
       <DependentUpon>202308170210325_Precio_Curso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308200140349_Calificaciones.resx">
+      <DependentUpon>202308200140349_Calificaciones.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,0 +1,30 @@
+﻿@model List<Matricula_Proyecto.Models.Calificaciones>
+
+@{
+    ViewBag.Title = "Calificaciones";
+}
+
+<h2>Calificaciones del Horario</h2>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <tr>
+            <th>Estudiante</th>
+            <th>Calificación</th>
+        </tr>
+        @foreach (var calificacion in Model)
+        {
+            <tr>
+                <td>@calificacion.estudiante.nombre_estudiante</td>
+                <td>@calificacion.nota_curso</td>
+                <td> @Html.ActionLink("Editar", "EditarCalificacion", new { calificacionId = calificacion.calificacion_id })</td>
+
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>No hay calificaciones para este horario.</p>
+}

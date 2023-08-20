@@ -28,10 +28,20 @@
                     <li>@Html.ActionLink("Usuarios", "Index", "Usuarios", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Prematricula", "Index", "Prematriculas", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Matricula", "Index", "Matriculas", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Mis Cursos Matriculados", "CursosMatriculados", "Prematricula")</li>
+                    <li>@Html.ActionLink("Calificaciones", "Index", "Calificaciones", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Calificaciones PROFESOR", "Index", "Notas", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Mis Cursos", "CursosMatriculados", "Prematricula", new { area = "" }, new { @class = "nav-link" })</li>
                     @if (Session["UserName"] != null)
                     {
-                        <span>Bienvenido, @Session["EstudianteNombre"]</span>
+                        if (Session["EstudianteNombre"] != null)
+                        {
+                            <li class="nav-link">Bienvenido, @Session["EstudianteNombre"]</li>
+                        }
+                        else if (Session["ProfesorNombre"] != null)
+                        {
+                            <li class="nav-link">Bienvenido, Profesor @Session["ProfesorNombre"]</li>
+                        }
+
                     }
                     else
                     {

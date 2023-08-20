@@ -20,6 +20,5 @@ namespace Matricula_Proyecto.Models
 
         [Display(Name = "Descripcion de la carrera")]
         public string descripcion { get; set; }
-
     }
 }

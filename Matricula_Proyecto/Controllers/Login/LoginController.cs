@@ -31,12 +31,25 @@ namespace Matricula_Proyecto.Controllers
                     // Autenticación exitosa
                     Session["UserName"] = usuario.usuario_nombre;
 
-                    // Buscar al estudiante correspondiente
-                    var estudiante = _context.Estudiantes.FirstOrDefault(e => e.usuario_id == usuario.usuario_id);
-                    if (estudiante != null)
+                    if (usuario.rol == "Estudiante")
                     {
-                        Session["EstudianteId"] = estudiante.estudiante_id; // Guardar el nombre del estudiante en la sesión
-                        Session["EstudianteNombre"] = estudiante.nombre_estudiante; // Guardar el nombre del estudiante en la sesión
+                        // Buscar al estudiante correspondiente
+                        var estudiante = _context.Estudiantes.FirstOrDefault(e => e.usuario_id == usuario.usuario_id);
+                        if (estudiante != null)
+                        {
+                            Session["EstudianteId"] = estudiante.estudiante_id; // Guardar el nombre del estudiante en la sesión
+                            Session["EstudianteNombre"] = estudiante.nombre_estudiante; // Guardar el nombre del estudiante en la sesión
+                        }
+                    }
+                    if (usuario.rol == "Profesor")
+                    {
+                        // Buscar al profesor correspondiente
+                        var profesor = _context.Profesores.FirstOrDefault(e => e.usuario_id == usuario.usuario_id);
+                        if (profesor != null)
+                        {
+                            Session["ProfesorId"] = profesor.profesor_id; // Guardar el nombre del profesor en la sesión
+                            Session["ProfesorNombre"] = profesor.nombre_profesor; // Guardar el nombre del profesor en la sesión
+                        }
                     }
 
                     return RedirectToAction("Index", "Home");

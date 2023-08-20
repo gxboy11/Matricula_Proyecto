@@ -1,0 +1,29 @@
+﻿@model List<Matricula_Proyecto.Models.Horarios>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Horarios del Profesor</h2>
+
+<table class="table">
+    <tr>
+        <th>Curso</th>
+        <th>Día Semana</th>
+        <th>Hora Inicio</th>
+        <th>Hora Final</th>
+        <th>Acciones</th>
+    </tr>
+    @foreach (var horario in Model)
+    {
+        <tr>
+            <td>@horario.Curso.nombre_curso</td>
+            <td>@horario.dia_semana</td>
+            <td>@horario.hora_inicio</td>
+            <td>@horario.hora_final</td>
+            <td>
+                @Html.ActionLink("Ver Calificaciones", "Calificaciones", new { horarioId = horario.horario_id })
+            </td>
+        </tr>
+    }
+</table>

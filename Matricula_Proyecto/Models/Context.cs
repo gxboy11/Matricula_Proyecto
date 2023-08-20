@@ -19,5 +19,7 @@ namespace Matricula_Proyecto.Models
         public DbSet<Carreras> Carrera { get; set; }
 
         public System.Data.Entity.DbSet<Matricula_Proyecto.Models.Horarios> Horarios { get; set; }
+
+        public System.Data.Entity.DbSet<Matricula_Proyecto.Models.Calificaciones> Calificaciones { get; set; }
     }
 }

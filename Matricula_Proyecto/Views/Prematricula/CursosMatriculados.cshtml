@@ -10,6 +10,7 @@
             <th>Día Semana</th>
             <th>Hora Inicio</th>
             <th>Hora Final</th>
+            <th>Profesor</th>
         </tr>
         @foreach (var matricula in Model)
         {
@@ -18,7 +19,7 @@
                 <td>@matricula.horario.dia_semana</td>
                 <td>@matricula.horario.hora_inicio</td>
                 <td>@matricula.horario.hora_final</td>
-                @*<td>@matricula.horario.Profesor.nombre_profesor</td>*@
+                <td>@matricula.horario.Profesor.nombre_profesor  @matricula.horario.Profesor.apellido_profesor</td>
             </tr>
         }
     </table>
