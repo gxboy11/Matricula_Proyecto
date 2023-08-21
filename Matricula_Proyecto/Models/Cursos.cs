@@ -31,5 +31,11 @@ namespace Matricula_Proyecto.Models
 
         [ForeignKey("carrera_id")]
         public Carreras carrera { get; set; }
+
+        [Display(Name = "Profesor")]
+        public int ProfesorId { get; set; }
+
+        [ForeignKey("ProfesorId")]
+        public Profesor Profesor { get; set; }
     }
 }

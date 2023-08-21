@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Matricula_Proyecto.Models.Estudiantes>
+
+@{
+    ViewBag.Title = "Estudiantes";
+}
+
+<h2>Estudiantes por Horario</h2>
+
+<ul>
+    @foreach (var estudiante in Model)
+    {
+        <li>@estudiante.nombre_estudiante @estudiante.apellido_estudiante</li>
+    }
+</ul>
