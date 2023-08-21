@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -18,9 +19,13 @@ namespace Matricula_Proyecto.Models
         public string password { get; set; }
 
         [Display(Name = "Rol")]
-        public string rol { get; set; }
+        public int rol_id { get; set; }
 
-        [Display(Name = "Estado de Usuar~io (Activo, Inactivo)")]
+        [Display(Name = "Estado de Usuario (Activo, Inactivo)")]
         public bool estado { get; set; }
+
+        [ForeignKey("rol_id")]
+        public Roles rol { get; set; }
+
     }
 }

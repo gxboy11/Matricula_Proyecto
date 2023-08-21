@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Matricula_Proyecto.Models.Roles>
+
+@{
+    ViewBag.Title = "Roles";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre_rol)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.descripcion_rol)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre_rol)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.descripcion_rol)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.rol_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.rol_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.rol_id })
+        </td>
+    </tr>
+}
+
+</table>

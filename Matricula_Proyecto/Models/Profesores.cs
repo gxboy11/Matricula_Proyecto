@@ -34,7 +34,7 @@ namespace Matricula_Proyecto.Models
         public string area_espec { get; set; }
 
 
-
+        [Display(Name = "Usuario")]
         public int usuario_id { get; set; }
 
         [ForeignKey("usuario_id")]

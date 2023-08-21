@@ -35,29 +35,6 @@ namespace Matricula_Proyecto.Controllers
             return View(usuarios);
         }
 
-        // GET: Usuarios/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Usuarios/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "usuario_id,usuario_nombre,password,rol,estado")] Usuarios usuarios)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Usuarios.Add(usuarios);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(usuarios);
-        }
-
         // GET: Usuarios/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -89,30 +66,18 @@ namespace Matricula_Proyecto.Controllers
             return View(usuarios);
         }
 
-        // GET: Usuarios/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Usuarios usuarios = db.Usuarios.Find(id);
-            if (usuarios == null)
-            {
-                return HttpNotFound();
-            }
-            return View(usuarios);
-        }
+            Usuarios usuario = db.Usuarios.Find(id);
 
-        // POST: Usuarios/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Usuarios usuarios = db.Usuarios.Find(id);
-            db.Usuarios.Remove(usuarios);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (usuario != null)
+            {
+                usuario.estado = false; // Cambiar el estado a inactivo
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return HttpNotFound();
         }
 
         protected override void Dispose(bool disposing)

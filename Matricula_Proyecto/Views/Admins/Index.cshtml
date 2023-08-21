@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Matricula_Proyecto.Models.Admin>
+
+@{
+    ViewBag.Title = "Administradores";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.usuario.usuario_nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre_admin)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.usuario.usuario_nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre_admin)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.admin_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.admin_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.admin_id })
+        </td>
+    </tr>
+}
+
+</table>

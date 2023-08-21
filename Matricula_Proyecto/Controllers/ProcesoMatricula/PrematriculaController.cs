@@ -18,34 +18,39 @@ namespace Matricula_Proyecto.Controllers.Matricular
         // GET: Horarios
         public ActionResult Index() //Lista filtrada por la carrera del estudiante 
         {
-
-            string userName = Session["UserName"] as string;
-
-            // Buscar al usuario en la tabla de Usuarios
-            Usuarios usuario = db.Usuarios.FirstOrDefault(u => u.usuario_nombre == userName);
-
-            if (usuario != null)
+            try
             {
-                // Buscar al usuario en la tabla de Estudiantes
-                Estudiantes estudiante = db.Estudiantes.FirstOrDefault(e => e.usuario_id == usuario.usuario_id);
+                string userName = Session["UserName"] as string;
 
-                if (estudiante != null)
+                // Buscar al usuario en la tabla de Usuarios
+                Usuarios usuario = db.Usuarios.FirstOrDefault(u => u.usuario_nombre == userName);
+
+                if (usuario != null)
                 {
-                    // Obtener la carrera que está cursando el estudiante
-                    Carreras carrera = db.Carrera.FirstOrDefault(c => c.carrera_id == estudiante.carrera_id);
+                    // Buscar al usuario en la tabla de Estudiantes
+                    Estudiantes estudiante = db.Estudiantes.FirstOrDefault(e => e.usuario_id == usuario.usuario_id);
 
-                    if (carrera != null)
+                    if (estudiante != null)
                     {
-                        // Obtener los cursos de la carrera
-                        List<Cursos> cursosCarrera = db.Cursos.Where(curso => curso.carrera_id == carrera.carrera_id).ToList();
+                        // Obtener la carrera que está cursando el estudiante
+                        Carreras carrera = db.Carrera.FirstOrDefault(c => c.carrera_id == estudiante.carrera_id);
 
-                        return View(cursosCarrera);
+                        if (carrera != null)
+                        {
+                            // Obtener los cursos de la carrera
+                            List<Cursos> cursosCarrera = db.Cursos.Where(curso => curso.carrera_id == carrera.carrera_id).ToList();
+
+                            return View(cursosCarrera);
+                        }
                     }
                 }
+                return RedirectToAction("ErrorGeneral", "Error");
             }
-
-            // Si no se encontró usuario, estudiante o carrera, podrías redirigir a una página de error o manejarlo según tu lógica
-            return RedirectToAction("Error");
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = ex.Message;
+                return RedirectToAction("ErrorGeneral", "Error");
+            }
         }
 
         [HttpGet]
@@ -58,36 +63,59 @@ namespace Matricula_Proyecto.Controllers.Matricular
         [HttpPost]
         public ActionResult Prematricula(int horarioId)
         {
-            var horarioSeleccionado = db.Horarios.FirstOrDefault(h => h.horario_id == horarioId);
-            if (horarioSeleccionado != null)
+            try
             {
-                // Agregar el ID del curso a la lista en la sesión
-                List<int> cursosPrematriculados = Session["HorariosPrematriculados"] as List<int> ?? new List<int>();
-                cursosPrematriculados.Add(horarioSeleccionado.curso_id);
-                Session["HorariosPrematriculados"] = cursosPrematriculados;
-            }
+                var horarioSeleccionado = db.Horarios.FirstOrDefault(h => h.horario_id == horarioId);
+                if (horarioSeleccionado != null)
+                {
+                    // Agregar el ID del curso a la lista en la sesión
+                    List<int> horarioPrematriculados = Session["HorariosPrematriculados"] as List<int> ?? new List<int>();
+                    List<int> cursoPrematriculados = Session["HorariosPrematriculados"] as List<int> ?? new List<int>();
+                    horarioPrematriculados.Add(horarioId);
+                    cursoPrematriculados.Add(horarioSeleccionado.curso_id);
+                    Session["HorariosPrematriculados"] = horarioPrematriculados;
+                    Session["CursosPrematriculados"] = cursoPrematriculados;
+                }
 
-            return RedirectToAction("Index", new { cursoId = horarioSeleccionado.curso_id });
+                return RedirectToAction("Index", new { cursoId = horarioSeleccionado.curso_id });
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = ex.Message;
+                return RedirectToAction("ErrorGeneral", "Error");
+            }
         }
 
         public ActionResult ListaHorarios(int id)
         {
-            var horariosPorCurso = db.Horarios.Where(h => h.curso_id == id).ToList();
+            try
+            {
+                var horariosPorCurso = db.Horarios
+                    .Where(h => h.curso_id == id)
+                    .Include(h => h.Profesor)
+                    .ToList();
 
-            var horarios = horariosPorCurso
-                .GroupBy(h => h.dia_semana)
-                .OrderBy(g => g.Key)
-                .ToList();
+                var horarios = horariosPorCurso
+                    .GroupBy(h => h.dia_semana)
+                    .OrderBy(g => g.Key)
+                    .ToList();
 
-            ViewBag.CursoNombre = db.Cursos.FirstOrDefault(c => c.curso_id == id)?.nombre_curso;
-            ViewBag.ProfesorNomber = db.Profesores.FirstOrDefault(p => p.profesor_id == id)?.profesor_id;
-            return View(horarios);
+                ViewBag.CursoNombre = db.Cursos.FirstOrDefault(c => c.curso_id == id)?.nombre_curso;
+                return View(horarios);
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = ex.Message;
+                return RedirectToAction("ErrorGeneral", "Error");
+            }
         }
+
 
 
         public ActionResult Matricular()
         {
-
+            //try
+            //{
             int idEstudiante = (int)Session["EstudianteId"];
 
             if (Session["HorariosPrematriculados"] != null)
@@ -109,7 +137,7 @@ namespace Matricula_Proyecto.Controllers.Matricular
                     {
                         estudiante_id = idEstudiante,
                         horario_id = idHorario,
-                        nota_curso = 0 // Puedes establecer la calificación inicial aquí
+                        nota_curso = 0
                     };
 
                     db.Calificaciones.Add(calificacion);
@@ -121,22 +149,37 @@ namespace Matricula_Proyecto.Controllers.Matricular
 
             return RedirectToAction("CursosMatriculados"); // Redirige a Mis Cursos
         }
+        //catch (Exception ex)
+        //{
+        //    TempData["ErrorMessage"] = ex.Message;
+        //    return RedirectToAction("ErrorGeneral", "Error");
+        //}
+        //}
+
 
 
         public ActionResult CursosMatriculados()
         {
-            // Obtener el ID del estudiante desde la sesión
-            int idEstudiante = (int)Session["EstudianteId"];
+            try
+            {
+                // Obtener el ID del estudiante desde la sesión
+                int idEstudiante = (int)Session["EstudianteId"];
 
-            // Buscar las matrículas del estudiante
-            var matriculasEstudiante = db.Matricula
-                .Include(m => m.horario)
-                .Include(m => m.horario.Curso)
-                .Include(m => m.horario.Profesor)
-                .Where(m => m.estudiante_id == idEstudiante)
-                .ToList();
+                // Buscar las matrículas del estudiante
+                var matriculasEstudiante = db.Matricula
+                    .Include(m => m.horario)
+                    .Include(m => m.horario.Curso)
+                    .Include(m => m.horario.Profesor)
+                    .Where(m => m.estudiante_id == idEstudiante)
+                    .ToList();
 
-            return View(matriculasEstudiante);
+                return View(matriculasEstudiante);
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = ex.Message;
+                return RedirectToAction("ErrorGeneral", "Error");
+            }
         }
     }
 }

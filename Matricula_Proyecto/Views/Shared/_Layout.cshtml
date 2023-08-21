@@ -26,7 +26,8 @@
                     <li>@Html.ActionLink("Profesores", "Index", "Profesores", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Horarios", "Index", "Horarios", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Usuarios", "Index", "Usuarios", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Prematricula", "Index", "Prematriculas", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Roles", "Index", "Roles", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Admins", "Index", "Admins", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Matricula", "Index", "Matriculas", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Calificaciones", "Index", "Calificaciones", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Calificaciones PROFESOR", "Index", "Notas", new { area = "" }, new { @class = "nav-link" })</li>
@@ -35,11 +36,15 @@
                     {
                         if (Session["EstudianteNombre"] != null)
                         {
-                            <li class="nav-link">Bienvenido, @Session["EstudianteNombre"]</li>
+                            <li class="nav-link">@Session["EstudianteNombre"]</li>
                         }
                         else if (Session["ProfesorNombre"] != null)
                         {
-                            <li class="nav-link">Bienvenido, Profesor @Session["ProfesorNombre"]</li>
+                            <li class="nav-link">Profesor @Session["ProfesorNombre"]</li>
+                        }
+                        else if (Session["AdminNombre"] != null)
+                        {
+                            <li class="nav-link">@Session["AdminNombre"]</li>
                         }
 
                     }

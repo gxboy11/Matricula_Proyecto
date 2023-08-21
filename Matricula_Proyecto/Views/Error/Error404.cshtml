@@ -1,0 +1,13 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "Página no encontrada";
+}
+
+<div class="container">
+    <div class="jumbotron">
+        <h1>¡Oops!</h1>
+        <p>La página que estás buscando no pudo ser encontrada.</p>
+        <p>@Html.ActionLink("Volver a la página principal", "Index", "Home", null, new { @class = "btn btn-primary btn-lg" })</p>
+    </div>
+</div>

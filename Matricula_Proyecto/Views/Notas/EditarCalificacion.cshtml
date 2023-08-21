@@ -1,7 +1,7 @@
 ﻿@model Matricula_Proyecto.Models.Calificaciones
 
 @{
-    ViewBag.Title = "EditarCalificacion";
+    ViewBag.Title = "Editar Calificacion";
 }
 
 <h2>Editar Calificación</h2>
@@ -21,7 +21,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.estudiante.nombre_estudiante, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Model.estudiante.nombre_estudiante
+                <p class="control-label col-md-2">@Model.estudiante.nombre_estudiante</p>
                 @Html.HiddenFor(model => model.estudiante_id)
             </div>
         </div>

@@ -35,27 +35,20 @@
                             <div class="form-input">
                                 @Html.TextBoxFor(Usuarios => Usuarios.usuario_nombre, new { required = "required", autofocus = "autofocus", placeholder = "Correo Electronico" })
                                 @Html.ValidationMessageFor(Usuarios => Usuarios.usuario_nombre)
-                                @*<input type="text" name="Username" placeholder="Correo Electronico" required="" autofocus>*@
                             </div>
                             <div class="form-input">
                                 @Html.TextBoxFor(Usuarios => Usuarios.password, new { required = "required", placeholder = "Contraseña" })
                                 @Html.ValidationMessageFor(Usuarios => Usuarios.password)
-                                @*<input type="password" name="password" placeholder="Contraseña" required="">*@
                             </div>
                             <label class="check-remaind">
                                 <input type="checkbox">
                                 <span class="checkmark"></span>
-                                <p class="remember">Recuerdame</p>
                             </label>
                             <button type="submit" class="btn btn-primary theme-button mt-4">
                                 Ingresar
                             </button>
                         }
                     </form>
-                    <p class="signup">
-                        @Html.ActionLink(" Aun no tienes una cuenta?", "Create",new { @class = "signuplink" })
-                        </a>
-                    </p>
                 </div>
             </div>
         </div>

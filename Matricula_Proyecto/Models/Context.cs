@@ -21,5 +21,9 @@ namespace Matricula_Proyecto.Models
         public System.Data.Entity.DbSet<Matricula_Proyecto.Models.Horarios> Horarios { get; set; }
 
         public System.Data.Entity.DbSet<Matricula_Proyecto.Models.Calificaciones> Calificaciones { get; set; }
+
+        public System.Data.Entity.DbSet<Matricula_Proyecto.Models.Admin> Admins { get; set; }
+
+        public System.Data.Entity.DbSet<Matricula_Proyecto.Models.Roles> Roles { get; set; }
     }
 }

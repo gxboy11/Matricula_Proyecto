@@ -1,0 +1,34 @@
+﻿@model Matricula_Proyecto.Models.Admin
+
+@{
+    ViewBag.Title = "Detalles Admin";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Admin</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.usuario.usuario_nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.usuario.usuario_nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre_admin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre_admin)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.admin_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

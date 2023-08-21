@@ -42,6 +42,7 @@ namespace Matricula_Proyecto.Controllers
         [HttpGet]
         public ActionResult CrearUsuario()
         {
+            ViewBag.rol_id = new SelectList(_context.Roles, "rol_id", "nombre_rol");
             return View();
         }
 
@@ -57,6 +58,7 @@ namespace Matricula_Proyecto.Controllers
                 _context.SaveChanges();
 
                 // Asociar el usuario con el estudiante
+                usuario.estado = true;
                 profesorEnEspera.usuario_id = usuario.usuario_id;
                 _context.Profesores.Add(profesorEnEspera);
                 _context.SaveChanges();

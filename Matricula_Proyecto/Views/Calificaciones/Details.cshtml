@@ -1,0 +1,42 @@
+﻿@model Matricula_Proyecto.Models.Calificaciones
+
+@{
+    ViewBag.Title = "Detalles Calificacion";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Calificaciones</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.estudiante.nombre_estudiante)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estudiante.nombre_estudiante)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.horario.dia_semana)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.horario.dia_semana)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nota_curso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nota_curso)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.calificacion_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

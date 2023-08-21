@@ -132,13 +132,16 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\API\HorariosController.cs" />
+    <Compile Include="Controllers\Error\ErrorController.cs" />
+    <Compile Include="Controllers\ModelsController\AdminsController.cs" />
+    <Compile Include="Controllers\ModelsController\CalificacionesController.cs" />
     <Compile Include="Controllers\ModelsController\CarrerasController.cs" />
     <Compile Include="Controllers\ModelsController\CursosController.cs" />
     <Compile Include="Controllers\ModelsController\EstudiantesController.cs" />
     <Compile Include="Controllers\ModelsController\HomeController.cs" />
     <Compile Include="Controllers\ModelsController\HorariosController.cs" />
     <Compile Include="Controllers\Login\LoginController.cs" />
+    <Compile Include="Controllers\ModelsController\RolesController.cs" />
     <Compile Include="Controllers\Notas\NotasController.cs" />
     <Compile Include="Controllers\ProcesoMatricula\PrematriculaController.cs" />
     <Compile Include="Controllers\ModelsController\MatriculasController.cs" />
@@ -160,17 +163,26 @@
     <Compile Include="Migrations\202308200140349_Calificaciones.designer.cs">
       <DependentUpon>202308200140349_Calificaciones.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202308201736467_Roles.cs" />
+    <Compile Include="Migrations\202308201736467_Roles.designer.cs">
+      <DependentUpon>202308201736467_Roles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308201806413_Admin.cs" />
+    <Compile Include="Migrations\202308201806413_Admin.designer.cs">
+      <DependentUpon>202308201806413_Admin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Calificaciones.cs" />
     <Compile Include="Models\Carreras.cs" />
     <Compile Include="Models\Context.cs" />
     <Compile Include="Models\Cursos.cs" />
     <Compile Include="Models\Estudiantes.cs" />
-    <Compile Include="Models\EstudiantesEnEspera.cs" />
     <Compile Include="Models\Horarios.cs" />
     <Compile Include="Models\Matricula.cs" />
     <Compile Include="Models\Prematricula.cs" />
     <Compile Include="Models\Profesores.cs" />
+    <Compile Include="Models\Roles.cs" />
     <Compile Include="Models\Usuarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -277,6 +289,24 @@
     <Content Include="Views\Notas\Index.cshtml" />
     <Content Include="Views\Notas\Calificaciones.cshtml" />
     <Content Include="Views\Notas\EditarCalificacion.cshtml" />
+    <Content Include="Views\Error\Error404.cshtml" />
+    <Content Include="Views\Error\ErrorGeneral.cshtml" />
+    <Content Include="Views\Admins\Create.cshtml" />
+    <Content Include="Views\Admins\Delete.cshtml" />
+    <Content Include="Views\Admins\Details.cshtml" />
+    <Content Include="Views\Admins\Edit.cshtml" />
+    <Content Include="Views\Admins\Index.cshtml" />
+    <Content Include="Views\Admins\CrearUsuario.cshtml" />
+    <Content Include="Views\Roles\Create.cshtml" />
+    <Content Include="Views\Roles\Delete.cshtml" />
+    <Content Include="Views\Roles\Details.cshtml" />
+    <Content Include="Views\Roles\Edit.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\Calificaciones\Create.cshtml" />
+    <Content Include="Views\Calificaciones\Delete.cshtml" />
+    <Content Include="Views\Calificaciones\Details.cshtml" />
+    <Content Include="Views\Calificaciones\Edit.cshtml" />
+    <Content Include="Views\Calificaciones\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -319,6 +349,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202308200140349_Calificaciones.resx">
       <DependentUpon>202308200140349_Calificaciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308201736467_Roles.resx">
+      <DependentUpon>202308201736467_Roles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308201806413_Admin.resx">
+      <DependentUpon>202308201806413_Admin.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

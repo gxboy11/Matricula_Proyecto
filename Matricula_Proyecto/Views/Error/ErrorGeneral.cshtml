@@ -1,0 +1,16 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "Error General";
+}
+
+<h2>Error General</h2>
+
+<p>Ha ocurrido un error. Detalles:</p>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <p><strong>Error:</strong> @TempData["ErrorMessage"]</p>
+}
+
+<p>Ponte en contacto con el soporte técnico para obtener ayuda.</p>
