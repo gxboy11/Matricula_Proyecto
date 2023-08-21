@@ -128,13 +128,5 @@ namespace Matricula_Proyecto.Controllers.ModelsControllers
             }
             base.Dispose(disposing);
         }
-
-        public ActionResult ListarCursosPorProfesor(int profesorId)
-        {
-            var cursosPorProfesor = db.Cursos.Where(c => c.ProfesorId == profesorId).ToList();
-            return View("Index", cursosPorProfesor); 
-        }
-
-
     }
 }

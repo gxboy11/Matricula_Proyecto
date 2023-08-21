@@ -161,20 +161,5 @@ namespace Matricula_Proyecto.Controllers
             }
             base.Dispose(disposing);
         }
-
-        public ActionResult ListarCursosPorEstudiante(int estudianteId)
-        {
-            var cursosPorEstudiante = db.Cursos.Where(c => c.EstudianteId == estudianteId).ToList();
-            return View("ListarCursosPorEstudiante", cursosPorEstudiante);
-        }
-
-        public ActionResult ListarEstudiantesPorHorario(int cursoId)
-        {
-            var estudiantesPorHorario = db.Estudiantes
-                .Where(e => e.Carrera.Cursos.Any(c => c.curso_id == cursoId))
-                .ToList();
-
-            return View("ListarEstudiantesPorHorario", estudiantesPorHorario);
-        }
     }
 }
