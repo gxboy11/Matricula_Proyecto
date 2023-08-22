@@ -51,6 +51,18 @@ namespace Matricula_Proyecto.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "horario_id,curso_id,profesor_id,dia_semana,hora_inicio,hora_final")] Horarios horarios)
         {
+            // Validar si el profesor ya tiene un horario en el mismo día y hora
+            bool hasDuplicate = db.Horarios.Any(h =>
+                h.profesor_id == horarios.profesor_id &&
+                h.dia_semana == horarios.dia_semana &&
+                h.hora_inicio == horarios.hora_inicio &&
+                h.hora_final == horarios.hora_final);
+
+            if (hasDuplicate)
+            {
+                ModelState.AddModelError("", "El profesor ya tiene un horario en esta misma franja horaria.");
+            }
+
             if (ModelState.IsValid)
             {
                 db.Horarios.Add(horarios);
@@ -87,12 +99,26 @@ namespace Matricula_Proyecto.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "horario_id,curso_id,profesor_id,dia_semana,hora_inicio,hora_final")] Horarios horarios)
         {
+            // Validar si el profesor ya tiene un horario en el mismo día y hora
+            bool hasDuplicate = db.Horarios.Any(h =>
+                h.horario_id != horarios.horario_id && // Excluir el horario actual en edición
+                h.profesor_id == horarios.profesor_id &&
+                h.dia_semana == horarios.dia_semana &&
+                h.hora_inicio == horarios.hora_inicio &&
+                h.hora_final == horarios.hora_final);
+
+            if (hasDuplicate)
+            {
+                ModelState.AddModelError("", "El profesor ya tiene este horario asignado.");
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(horarios).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             ViewBag.curso_id = new SelectList(db.Cursos, "curso_id", "nombre_curso", horarios.curso_id);
             ViewBag.profesor_id = new SelectList(db.Profesores, "profesor_id", "nombre_profesor", horarios.profesor_id);
             return View(horarios);

@@ -16,7 +16,7 @@
                         usuario_id = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.admin_id)
-                .ForeignKey("dbo.Usuarios", t => t.usuario_id, cascadeDelete: true)
+                .ForeignKey("dbo.Usuarios", t => t.usuario_id, cascadeDelete: false)
                 .Index(t => t.usuario_id);
             
         }

@@ -68,13 +68,28 @@ namespace Matricula_Proyecto.Controllers.Matricular
                 var horarioSeleccionado = db.Horarios.FirstOrDefault(h => h.horario_id == horarioId);
                 if (horarioSeleccionado != null)
                 {
-                    // Agregar el ID del curso a la lista en la sesión
-                    List<int> horarioPrematriculados = Session["HorariosPrematriculados"] as List<int> ?? new List<int>();
-                    List<int> cursoPrematriculados = Session["HorariosPrematriculados"] as List<int> ?? new List<int>();
-                    horarioPrematriculados.Add(horarioId);
-                    cursoPrematriculados.Add(horarioSeleccionado.curso_id);
-                    Session["HorariosPrematriculados"] = horarioPrematriculados;
-                    Session["CursosPrematriculados"] = cursoPrematriculados;
+                    // Verificar si ya existe un horario con la misma hora de inicio en la sesión
+                    List<int> horariosPrematriculados = Session["HorariosPrematriculados"] as List<int> ?? new List<int>();
+
+                    bool conflictoHorario = horariosPrematriculados.Any(id =>
+                    {
+                        var horarioExistente = db.Horarios.FirstOrDefault(h => h.horario_id == id);
+                        return horarioExistente != null && horarioExistente.hora_inicio == horarioSeleccionado.hora_inicio;
+                    });
+
+                    if (conflictoHorario)
+                    {
+                        TempData["ErrorMessage"] = "No puedes pre-matricularte en dos horarios con la misma hora.";
+                        return RedirectToAction("ErrorGeneral", "Error");
+                    }
+
+                    // Agregar el ID del horario y el curso a la lista en la sesión
+                    horariosPrematriculados.Add(horarioId);
+                    Session["HorariosPrematriculados"] = horariosPrematriculados;
+
+                    List<int> cursosPrematriculados = Session["CursosPrematriculados"] as List<int> ?? new List<int>();
+                    cursosPrematriculados.Add(horarioSeleccionado.curso_id);
+                    Session["CursosPrematriculados"] = cursosPrematriculados;
                 }
 
                 return RedirectToAction("Index", new { cursoId = horarioSeleccionado.curso_id });
@@ -85,6 +100,7 @@ namespace Matricula_Proyecto.Controllers.Matricular
                 return RedirectToAction("ErrorGeneral", "Error");
             }
         }
+
 
         public ActionResult ListaHorarios(int id)
         {
@@ -110,12 +126,9 @@ namespace Matricula_Proyecto.Controllers.Matricular
             }
         }
 
-
-
         public ActionResult Matricular()
         {
-            //try
-            //{
+
             int idEstudiante = (int)Session["EstudianteId"];
 
             if (Session["HorariosPrematriculados"] != null)
@@ -149,13 +162,6 @@ namespace Matricula_Proyecto.Controllers.Matricular
 
             return RedirectToAction("CursosMatriculados"); // Redirige a Mis Cursos
         }
-        //catch (Exception ex)
-        //{
-        //    TempData["ErrorMessage"] = ex.Message;
-        //    return RedirectToAction("ErrorGeneral", "Error");
-        //}
-        //}
-
 
 
         public ActionResult CursosMatriculados()
@@ -181,5 +187,29 @@ namespace Matricula_Proyecto.Controllers.Matricular
                 return RedirectToAction("ErrorGeneral", "Error");
             }
         }
+
+        [HttpGet]
+        public ActionResult Facturacion()
+        {
+            try
+            {
+                int idEstudiante = (int)Session["EstudianteId"];
+
+                var matriculasEstudiante = db.Matricula
+                    .Include(m => m.horario)
+                    .Include(m => m.horario.Curso)
+                    .Include(m => m.horario.Profesor)
+                    .Where(m => m.estudiante_id == idEstudiante)
+                    .ToList();
+
+                return View(matriculasEstudiante);
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = ex.Message;
+                return RedirectToAction("ErrorGeneral", "Error");
+            }
+        }
+
     }
 }
