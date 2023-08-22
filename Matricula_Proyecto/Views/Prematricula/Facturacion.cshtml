@@ -1,58 +1,33 @@
-﻿@model List<Matricula_Proyecto.Models.Matricula>
+﻿@model IEnumerable<Matricula_Proyecto.Models.Horarios>
 
 @{
-    ViewBag.Title = "Facturación y Cobro de Matrícula";
+    ViewBag.Title = "Facturacion";
 }
 
-<h2>Facturación y Cobro de Matrícula</h2>
+<h2>Facturación</h2>
 
-@if (Model.Any())
-{
-    <p>A continuación, se muestra el resumen de la matrícula:</p>
-    <table class="table">
+<table class="table">
+    <thead>
         <tr>
             <th>Curso</th>
-            <th>Día Semana</th>
-            <th>Hora Inicio</th>
-            <th>Hora Final</th>
-            <th>Profesor</th>
+            <th>Horario</th>
+            <th>Precio Curso</th>
         </tr>
-        @foreach (var matricula in Model)
+    </thead>
+    <tbody>
+        @foreach (var horario in Model)
         {
             <tr>
-                <td>@matricula.horario.Curso.nombre_curso</td>
-                <td>@matricula.horario.dia_semana</td>
-                <td>@matricula.horario.hora_inicio</td>
-                <td>@matricula.horario.hora_final</td>
-                <td>@matricula.horario.Profesor.nombre_profesor @matricula.horario.Profesor.apellido_profesor</td>
+                <td>@horario.Curso.nombre_curso</td>
+                <td>@($"{horario.hora_inicio} - {horario.hora_final}, {horario.Profesor.nombre_profesor}")</td>
+                <td>@horario.Curso.precio_curso.ToString("C")</td>
             </tr>
         }
-    </table>
+        <tr>
+            <td colspan="2"><strong>Total:</strong></td>
+            <td>@ViewBag.Total.ToString("C")</td>
+        </tr>
+    </tbody>
+</table>
 
-    <p>El costo total de la matrícula es: <strong>@CalcularCostoTotal()</strong></p>
-
-    using (Html.BeginForm("RealizarPago", "Prematricula"))
-    {
-        <button type="submit" class="btn btn-success">Realizar Pago</button>
-    }
-}
-else
-{
-    <p>No hay cursos matriculados para facturar.</p>
-}
-
-@functions {
-    public string CalcularCostoTotal()
-    {
-        decimal costoTotal = 0;
-
-        foreach (var matricula in Model)
-        {
-            // Ejemplo de cálculo ficticio:
-            costoTotal += matricula.horario.Curso.creditos_curso * 50; // Precio ficticio por crédito
-        }
-
-        return costoTotal.ToString("C"); // Formato de moneda
-    }
-    }
-
+<a href="@Url.Action("Matricular", "Prematricula")" class="btn btn-primary">Confirmar Matrícula</a>

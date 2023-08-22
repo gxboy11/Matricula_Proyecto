@@ -43,6 +43,8 @@ namespace Matricula_Proyecto.Controllers
                             Session["EstudianteNombre"] = null;
                             Session["EstudianteId"] = estudiante.estudiante_id; // Guardar el nombre del estudiante en la sesión
                             Session["EstudianteNombre"] = estudiante.nombre_estudiante; // Guardar el nombre del estudiante en la sesión
+                            Session["Rol"] = roles.nombre_rol; // Guardar el nombre del estudiante en la sesión
+                            Session["Rol"] = roles.nombre_rol; // Guardar el nombre del estudiante en la sesión
                         }
                     }
                     if (roles.nombre_rol != null && roles.nombre_rol == "Profesor") //Profesor
@@ -54,6 +56,8 @@ namespace Matricula_Proyecto.Controllers
                             Session["ProfesorId"] = profesor.profesor_id;
                             Session["ProfesorNombre"] = null;
                             Session["ProfesorNombre"] = profesor.nombre_profesor;
+                            Session["Rol"] = roles.nombre_rol;
+                            Session["Rol"] = roles.nombre_rol;
                         }
                     }
                     if (roles.nombre_rol != null && roles.nombre_rol == "Admin") //Admin
@@ -65,6 +69,8 @@ namespace Matricula_Proyecto.Controllers
                             Session["AdminId"] = admin.admin_id;
                             Session["AdminNombre"] = null;
                             Session["AdminNombre"] = admin.nombre_admin;
+                            Session["Rol"] = roles.nombre_rol;
+                            Session["Rol"] = roles.nombre_rol;
                         }
                     }
                     return RedirectToAction("Index", "Home");

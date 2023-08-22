@@ -20,6 +20,7 @@ namespace Matricula_Proyecto.Controllers.Matricular
         {
             try
             {
+                
                 string userName = Session["UserName"] as string;
 
                 // Buscar al usuario en la tabla de Usuarios
@@ -39,6 +40,11 @@ namespace Matricula_Proyecto.Controllers.Matricular
                         {
                             // Obtener los cursos de la carrera
                             List<Cursos> cursosCarrera = db.Cursos.Where(curso => curso.carrera_id == carrera.carrera_id).ToList();
+
+                            bool yaMatriculado = db.Matricula.Any(m => m.estudiante_id == estudiante.estudiante_id);
+
+                            ViewBag.YaMatriculado = yaMatriculado;
+
 
                             return View(cursosCarrera);
                         }
@@ -187,20 +193,23 @@ namespace Matricula_Proyecto.Controllers.Matricular
                 return RedirectToAction("ErrorGeneral", "Error");
             }
         }
-
-        [HttpGet]
+        [HttpPost]
         public ActionResult Facturacion()
         {
             try
             {
                 int idEstudiante = (int)Session["EstudianteId"];
+                List<int> horariosPrematriculados = (List<int>)Session["HorariosPrematriculados"];
 
-                var matriculasEstudiante = db.Matricula
-                    .Include(m => m.horario)
-                    .Include(m => m.horario.Curso)
-                    .Include(m => m.horario.Profesor)
-                    .Where(m => m.estudiante_id == idEstudiante)
+                var matriculasEstudiante = db.Horarios
+                    .Include(h => h.Curso)
+                    .Include(h => h.Profesor)
+                    .Where(h => horariosPrematriculados.Contains(h.horario_id))
                     .ToList();
+
+                float total = matriculasEstudiante.Sum(h => h.Curso.precio_curso);
+
+                ViewBag.Total = total;
 
                 return View(matriculasEstudiante);
             }
@@ -210,6 +219,7 @@ namespace Matricula_Proyecto.Controllers.Matricular
                 return RedirectToAction("ErrorGeneral", "Error");
             }
         }
+
 
     }
 }

@@ -38,7 +38,13 @@
                 @Html.DisplayFor(modelItem => item.creditos_curso)
             </td>
             <td>
-                @if (Session["CursosPrematriculados"] != null && ((List<int>)Session["CursosPrematriculados"]).Contains(item.curso_id))
+                @if (ViewBag.YaMatriculado)
+                {
+                    <div class="alert alert-info" role="alert">
+                        Ya has matriculado en cursos.
+                    </div>
+                }
+                else if (Session["CursosPrematriculados"] != null && ((List<int>)Session["CursosPrematriculados"]).Contains(item.curso_id))
                 {
                     <span class="text-success">Horario Prematriculado</span>
                 }
@@ -46,11 +52,12 @@
                 {
                     @Html.ActionLink("Ver Horarios", "ListaHorarios", new { id = item.curso_id })
                 }
+
             </td>
         </tr>
     }
 </table>
-@using (Html.BeginForm("CursosMatriculados", "Prematricula"))
+@using (Html.BeginForm("Facturacion", "Prematricula"))
 {
     <button type="submit" class="btn btn-primary">MATRICULAR</button>
-    }
+}
