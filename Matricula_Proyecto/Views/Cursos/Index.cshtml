@@ -29,29 +29,30 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.carrera.nombre_carrera)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nombre_curso)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.creditos_curso)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.precio_curso)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.curso_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.curso_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.curso_id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.carrera.nombre_carrera)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombre_curso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.creditos_curso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.precio_curso)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.curso_id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.curso_id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.curso_id })
+            </td>
+        </tr>
+    }
 
 </table>

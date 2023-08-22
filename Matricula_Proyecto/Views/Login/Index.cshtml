@@ -37,7 +37,7 @@
                                 @Html.ValidationMessageFor(Usuarios => Usuarios.usuario_nombre)
                             </div>
                             <div class="form-input">
-                                @Html.TextBoxFor(Usuarios => Usuarios.password, new { required = "required", placeholder = "Contraseña" })
+                                @Html.TextBoxFor(Usuarios => Usuarios.password, new { required = "required", placeholder = "Contraseña", type = "password" })
                                 @Html.ValidationMessageFor(Usuarios => Usuarios.password)
                             </div>
                             <label class="check-remaind">

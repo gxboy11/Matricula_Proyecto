@@ -17,7 +17,7 @@
             </button>
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Inicio", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
 
                     @if (string.Equals(Session["Rol"] as string, "Admin", StringComparison.OrdinalIgnoreCase))
                     {
@@ -58,6 +58,8 @@
                         {
                             <li class="nav-link">@Session["AdminNombre"]</li>
                         }
+
+                <li>@Html.ActionLink("Salir", "Index", "Login", new { area = "" }, new { @class = "btn btn-danger" })</li>
 
                     }
                     else

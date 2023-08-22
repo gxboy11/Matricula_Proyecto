@@ -20,7 +20,7 @@ namespace Matricula_Proyecto.Controllers.Matricular
         {
             try
             {
-                
+
                 string userName = Session["UserName"] as string;
 
                 // Buscar al usuario en la tabla de Usuarios
@@ -110,27 +110,21 @@ namespace Matricula_Proyecto.Controllers.Matricular
 
         public ActionResult ListaHorarios(int id)
         {
-            try
-            {
-                var horariosPorCurso = db.Horarios
-                    .Where(h => h.curso_id == id)
-                    .Include(h => h.Profesor)
-                    .ToList();
 
-                var horarios = horariosPorCurso
-                    .GroupBy(h => h.dia_semana)
-                    .OrderBy(g => g.Key)
-                    .ToList();
+            var horariosPorCurso = db.Horarios
+                .Where(h => h.curso_id == id)
+                .Include(h => h.Profesor)
+                .ToList();
 
-                ViewBag.CursoNombre = db.Cursos.FirstOrDefault(c => c.curso_id == id)?.nombre_curso;
-                return View(horarios);
-            }
-            catch (Exception ex)
-            {
-                TempData["ErrorMessage"] = ex.Message;
-                return RedirectToAction("ErrorGeneral", "Error");
-            }
+            var horarios = horariosPorCurso
+                .GroupBy(h => h.dia_semana)
+                .OrderBy(g => g.Key)
+                .ToList();
+
+            ViewBag.CursoNombre = db.Cursos.FirstOrDefault(c => c.curso_id == id)?.nombre_curso;
+            return View(horarios);
         }
+
 
         public ActionResult Matricular()
         {
