@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Matricula_Proyecto.Models.Cursos>
+
+@{
+    ViewBag.Title = "Lista de Cursos por Profesor";
+}
+
+<h2>Listado de Cursos por Profesor</h2>
+
+<table class="table">
+    <tr>
+        <th>Nombre Curso</th>
+        <th>Descripcion Curso</th>
+        <th>Creditos</th>
+        <th>Precio</th>
+    </tr>
+    @foreach (var curso in Model)
+    {
+        <tr>
+            <td>@curso.nombre_curso</td>
+            <td>@curso.descripcion</td>
+            <td>@curso.creditos_curso</td>
+            <td>@curso.precio_curso</td>
+        </tr>
+    }
+</table><h2>Listado de Cursos por Profesor</h2>
+
+<table class="table">
+    <tr>
+        <th>Nombre Curso</th>
+        <th>Descripcion Curso</th>
+        <th>Creditos</th>
+        <th>Precio</th>
+    </tr>
+    @foreach (var curso in Model)
+    {
+        <tr>
+            <td>@curso.nombre_curso</td>
+            <td>@curso.descripcion</td>
+            <td>@curso.creditos_curso</td>
+            <td>@curso.precio_curso</td>
+        </tr>
+    }
+</table>
